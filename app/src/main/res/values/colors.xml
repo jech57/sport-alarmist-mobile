@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Design System Colors (tomados del style tile en Figma) -->
+    <color name="background">#0E0E0E</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="orange_primary">#FF6A00</color>
+    <color name="orange_primary_variant">#CC5500</color>
+    <color name="silver_chalice">#ADAAAA</color>
+</resources>
