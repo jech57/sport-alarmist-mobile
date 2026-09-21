@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alerts</string>
+
+    <string name="title_home">Torneos</string>
+    <string name="title_tournament_detail">Detalle del torneo</string>
+    <string name="title_registration">Inscripción a torneo</string>
+    <string name="title_profile">Perfil</string>
+</resources>

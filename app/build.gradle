@@ -1,0 +1,144 @@
+plugins {
+    alias libs.plugins.android.application
+    alias libs.plugins.jetbrains.kotlin.android
+    id 'kotlin-kapt'
+    id 'jacoco'
+}
+
+android {
+    namespace 'com.misw.sportalarmist'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.misw.sportalarmist"
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "BASE_URL", '"http://10.0.2.2:3000/"'
+    }
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+        dataBinding true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // TODO: replace with the real deployed backend URL once it exists.
+            buildConfigField "String", "BASE_URL", '"https://TODO-backend-url/"'
+            signingConfig signingConfigs.debug
+        }
+        profiling {
+            initWith release
+            matchingFallbacks = ['release']
+            debuggable false
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            enableAndroidTestCoverage true
+            enableUnitTestCoverage true
+            buildConfigField "String", "BASE_URL", '"http://10.0.2.2:3000/"'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    lint {
+        abortOnError false
+        checkAllWarnings true
+        warningsAsErrors false
+        disable 'OldTargetApi', 'UniqueConstants', 'IdenticalLayouts'
+    }
+}
+
+dependencies {
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.navigation.fragment.ktx
+    implementation libs.androidx.navigation.ui.ktx
+    implementation libs.material
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.fragment.ktx
+    implementation libs.androidx.recyclerview
+
+    // Lifecycle + LiveData
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.lifecycle.livedata.ktx
+
+    // Retrofit
+    implementation libs.retrofit
+    implementation libs.converter.gson
+    implementation libs.okhttp
+
+    // Carga de imágenes
+    implementation libs.glide
+    implementation libs.okhttp3.integration
+    kapt libs.compiler
+
+    // Testing
+    testImplementation libs.junit
+    testImplementation libs.androidx.arch.core.testing
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.mockito.core
+    testImplementation libs.mockito.kotlin
+
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+    androidTestImplementation libs.androidx.espresso.contrib
+    androidTestImplementation libs.androidx.runner
+    androidTestImplementation libs.androidx.rules
+    debugImplementation libs.androidx.fragment.testing
+
+    // Idling Resource
+    implementation libs.androidx.espresso.idling.resource
+
+    // Mocking & Data generation
+    androidTestImplementation libs.mockwebserver
+    androidTestImplementation libs.javafaker
+
+    // Shimmer para la carga de imágenes
+    implementation libs.shimmer
+
+    // Layout
+    implementation libs.flexbox
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+tasks.withType(Test).configureEach {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+tasks.register('jacocoTestReport', JacocoReport) {
+    dependsOn 'testDebugUnitTest', 'createDebugCoverageReport'
+    reports {
+        xml.required = true
+        html.required = true
+    }
+
+    def fileFilter = [
+            '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
+            '**/*Test*.*', 'android/**/*.*', '**/databinding/*', '**/BR.*'
+    ]
+    def debugTree = fileTree(dir: "${layout.buildDirectory.get()}/intermediates/javac/debug/classes", excludes: fileFilter)
+    def kotlinDebugTree = fileTree(dir: "${layout.buildDirectory.get()}/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree, kotlinDebugTree]))
+    executionData.setFrom(fileTree(dir: layout.buildDirectory.get(), includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code_coverage/debugAndroidTest/connected/*/coverage.ec"
+    ]))
+}
