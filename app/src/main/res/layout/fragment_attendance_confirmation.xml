@@ -6,26 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.attendance.AttendanceConfirmationFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:text="@string/title_home"
+        android:text="@string/title_attendance_confirmation"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Illustration band (trofeo): mismo lugar que en el mockup de Figma
-         (frame "Torneos"), anclada al fondo de la pantalla. -->
+    <!-- Illustration band (doodle): mismo lugar que en el mockup de Figma
+         (frame "Confirmación de asistencia"), anclada al fondo. -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="132dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_illustration_band_trofeo"
+        android:src="@drawable/ic_illustration_band_doodle"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

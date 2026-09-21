@@ -11,12 +11,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
         android:text="@string/title_registration"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Illustration band (calendario): mismo lugar que en el mockup de
+         Figma (frame "Inscripción a triángulo"), anclada al fondo. -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_illustration_band_calendario"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

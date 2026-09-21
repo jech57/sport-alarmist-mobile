@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Ported verbatim from Figma's own SVG export of node 93:1777 ("Illustration
+  band (trofeo)") — not from hand-drawn approximation. Path data (including
+  the circle/diamond cubic-bezier shapes) is copied as-is; only two
+  adaptations were needed for VectorDrawable:
+  1. stroke-dasharray "1 5" on the two sparkle accents has no VectorDrawable
+     equivalent, so each was resampled into discrete dash segments.
+  2. the background wash (paint0) is an elliptical radial gradient (Figma's
+     gradientTransform applies a non-uniform scale); VectorDrawable's XML
+     gradient only supports a circular radius, so it is approximated with a
+     circular one sized to the ellipse's larger axis. It is very low-opacity
+     (≤0.18) and reads the same in practice.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="412dp"
+    android:height="132dp"
+    android:viewportWidth="412"
+    android:viewportHeight="132">
+
+    <!-- card outline -->
+    <path
+        android:pathData="M395.5,0.5H16.5C7.66344,0.5 0.5,7.66344 0.5,16.5V115.5C0.5,124.337 7.66344,131.5 16.5,131.5H395.5C404.337,131.5 411.5,124.337 411.5,115.5V16.5C411.5,7.66344 404.337,0.5 395.5,0.5Z"
+        android:fillColor="#0E0E10"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.08"
+        android:strokeWidth="1" />
+
+    <!-- card background wash (ellipse approximated as a circle, see header) -->
+    <path android:pathData="M206,-118 A287,287 0 1,0 206,456 A287,287 0 1,0 206,-118 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="206"
+                android:centerY="131"
+                android:gradientRadius="287">
+                <item android:offset="0" android:color="#2EFF6A00" />
+                <item android:offset="0.68" android:color="#00FF6A00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- bracket-tree lines, background -->
+    <path
+        android:pathData="M18,34 H58 H84 M58,22 V46"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.09"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M18,88 H58 H84 M58,76 V100"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.09"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M84,34 V88 M84,61 H110"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.09"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M330,30 H370 M330,18 V42"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.09"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M330,94 H370 M330,82 V106"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.09"
+        android:strokeWidth="1.5" />
+
+    <!-- confetti: diamonds -->
+    <path
+        android:pathData="M228,24 L234,28 L228,32 L222,28 L228,24 Z"
+        android:strokeColor="#3B82F6"
+        android:strokeAlpha="0.7"
+        android:strokeWidth="2.4" />
+    <path
+        android:pathData="M260,40 L266,44 L260,48 L254,44 L260,40 Z"
+        android:strokeColor="#22C55E"
+        android:strokeAlpha="0.65"
+        android:strokeWidth="2.4" />
+    <path
+        android:pathData="M300,22 L306,26 L300,30 L294,26 L300,22 Z"
+        android:strokeColor="#F59E0B"
+        android:strokeAlpha="0.7"
+        android:strokeWidth="2.4" />
+    <path
+        android:pathData="M330,50 L336,54 L330,58 L324,54 L330,50 Z"
+        android:strokeColor="#FF9245"
+        android:strokeAlpha="0.6"
+        android:strokeWidth="2.4" />
+
+    <!-- confetti: dots -->
+    <path
+        android:pathData="M245,20.4 C246.325,20.4 247.4,19.3255 247.4,18 C247.4,16.6745 246.325,15.6 245,15.6 C243.675,15.6 242.6,16.6745 242.6,18 C242.6,19.3255 243.675,20.4 245,20.4 Z"
+        android:fillColor="#3B82F6"
+        android:fillAlpha="0.7" />
+    <path
+        android:pathData="M278,32.6 C279.436,32.6 280.6,31.4359 280.6,30 C280.6,28.5641 279.436,27.4 278,27.4 C276.564,27.4 275.4,28.5641 275.4,30 C275.4,31.4359 276.564,32.6 278,32.6 Z"
+        android:fillColor="#22C55E"
+        android:fillAlpha="0.65" />
+    <path
+        android:pathData="M315,47.2 C316.215,47.2 317.2,46.215 317.2,45 C317.2,43.785 316.215,42.8 315,42.8 C313.785,42.8 312.8,43.785 312.8,45 C312.8,46.215 313.785,47.2 315,47.2 Z"
+        android:fillColor="#F59E0B"
+        android:fillAlpha="0.7" />
+    <path
+        android:pathData="M340,67.4 C341.325,67.4 342.4,66.3255 342.4,65 C342.4,63.6745 341.325,62.6 340,62.6 C338.675,62.6 337.6,63.6745 337.6,65 C337.6,66.3255 338.675,67.4 340,67.4 Z"
+        android:fillColor="#FF9245"
+        android:fillAlpha="0.6" />
+
+    <!-- confetti: sparkle accents (stroke-dasharray "1 5" resampled) -->
+    <path
+        android:pathData="M235.00,55.00 L235.95,55.32 M240.69,56.90 L241.64,57.21 M246.38,58.79 L247.33,59.11
+                           M252.08,60.69 L253.02,61.01 M257.77,62.59 L258.72,62.91 M263.46,64.49 L264.41,64.80"
+        android:strokeColor="#FFC69C"
+        android:strokeAlpha="0.5"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M290.00,60.00 L290.97,60.26 M295.80,61.55 L296.76,61.80 M301.59,63.09 L302.56,63.35
+                           M307.39,64.64 L308.36,64.90 M313.19,66.18 L314.16,66.44 M318.99,67.73 L319.95,67.99"
+        android:strokeColor="#FFC69C"
+        android:strokeAlpha="0.5"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+
+    <!-- trophy glow -->
+    <path
+        android:pathData="M278,102 C296.778,102 312,86.7777 312,68 C312,49.2223 296.778,34 278,34 C259.222,34 244,49.2223 244,68 C244,86.7777 259.222,102 278,102 Z"
+        android:fillAlpha="0.8">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="278"
+                android:centerY="68"
+                android:gradientRadius="34">
+                <item android:offset="0" android:color="#D9FF9245" />
+                <item android:offset="0.55" android:color="#47FF6A00" />
+                <item android:offset="1" android:color="#00FF6A00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- trophy icon -->
+    <path
+        android:pathData="M265,50 H291 V59 C291,62.4478 289.63,65.7544 287.192,68.1924 C284.754,70.6304 281.448,72 278,72 C274.552,72 271.246,70.6304 268.808,68.1924 C266.37,65.7544 265,62.4478 265,59 V50 Z"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M265,53 H256 C255.47,53 254.961,53.2107 254.586,53.5858 C254.211,53.9609 254,54.4696 254,55 V58 C254,60.1217 254.843,62.1566 256.343,63.6569 C257.843,65.1571 259.878,66 262,66"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M291,53 H300 C300.53,53 301.039,53.2107 301.414,53.5858 C301.789,53.9609 302,54.4696 302,55 V58 C302,60.1217 301.157,62.1566 299.657,63.6569 C298.157,65.1571 296.122,66 294,66"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M278,68 V77"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M270,77 H286 V83 H270 V77 Z"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

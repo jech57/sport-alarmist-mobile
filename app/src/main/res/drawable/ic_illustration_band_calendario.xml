@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Ported verbatim from Figma's own SVG export of node 93:1897 ("Illustration
+  band (calendario)") — not from hand-drawn approximation. Path data is
+  copied as-is; two adaptations were needed for VectorDrawable:
+  1. stroke-dasharray "1 6" on the reminder curve has no VectorDrawable
+     equivalent, so it was resampled along the same bezier into discrete
+     dash segments.
+  2. the background wash (paint0) is an elliptical radial gradient (Figma's
+     gradientTransform applies a non-uniform scale); approximated here with
+     a circular gradient sized to the ellipse's larger axis — it's very
+     low-opacity (≤0.16) and reads the same in practice.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="412dp"
+    android:height="132dp"
+    android:viewportWidth="412"
+    android:viewportHeight="132">
+
+    <!-- card outline -->
+    <path
+        android:pathData="M395.5,0.5H16.5C7.66344,0.5 0.5,7.66344 0.5,16.5V115.5C0.5,124.337 7.66344,131.5 16.5,131.5H395.5C404.337,131.5 411.5,124.337 411.5,115.5V16.5C411.5,7.66344 404.337,0.5 395.5,0.5Z"
+        android:fillColor="#0E0E10"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.08"
+        android:strokeWidth="1" />
+
+    <!-- card background wash (ellipse approximated as a circle, see header) -->
+    <path android:pathData="M288,-118 A287,287 0 1,0 288,456 A287,287 0 1,0 288,-118 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="288"
+                android:centerY="131"
+                android:gradientRadius="287">
+                <item android:offset="0" android:color="#293B82F6" />
+                <item android:offset="0.68" android:color="#003B82F6" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- dotted grid, blue-tinted, background -->
+    <path
+        android:pathData="M30,25.3 C30.718,25.3 31.3,24.718 31.3,24 C31.3,23.282 30.718,22.7 30,22.7 C29.282,22.7 28.7,23.282 28.7,24 C28.7,24.718 29.282,25.3 30,25.3 Z
+                           M52,25.3 C52.718,25.3 53.3,24.718 53.3,24 C53.3,23.282 52.718,22.7 52,22.7 C51.282,22.7 50.7,23.282 50.7,24 C50.7,24.718 51.282,25.3 52,25.3 Z
+                           M74,25.3 C74.718,25.3 75.3,24.718 75.3,24 C75.3,23.282 74.718,22.7 74,22.7 C73.282,22.7 72.7,23.282 72.7,24 C72.7,24.718 73.282,25.3 74,25.3 Z
+                           M30,45.3 C30.718,45.3 31.3,44.718 31.3,44 C31.3,43.282 30.718,42.7 30,42.7 C29.282,42.7 28.7,43.282 28.7,44 C28.7,44.718 29.282,45.3 30,45.3 Z
+                           M52,45.3 C52.718,45.3 53.3,44.718 53.3,44 C53.3,43.282 52.718,42.7 52,42.7 C51.282,42.7 50.7,43.282 50.7,44 C50.7,44.718 51.282,45.3 52,45.3 Z
+                           M74,45.3 C74.718,45.3 75.3,44.718 75.3,44 C75.3,43.282 74.718,42.7 74,42.7 C73.282,42.7 72.7,43.282 72.7,44 C72.7,44.718 73.282,45.3 74,45.3 Z
+                           M336,91.3 C336.718,91.3 337.3,90.718 337.3,90 C337.3,89.282 336.718,88.7 336,88.7 C335.282,88.7 334.7,89.282 334.7,90 C334.7,90.718 335.282,91.3 336,91.3 Z
+                           M358,91.3 C358.718,91.3 359.3,90.718 359.3,90 C359.3,89.282 358.718,88.7 358,88.7 C357.282,88.7 356.7,89.282 356.7,90 C356.7,90.718 357.282,91.3 358,91.3 Z
+                           M380,91.3 C380.718,91.3 381.3,90.718 381.3,90 C381.3,89.282 380.718,88.7 380,88.7 C379.282,88.7 378.7,89.282 378.7,90 C378.7,90.718 379.282,91.3 380,91.3 Z"
+        android:fillColor="#3B82F6"
+        android:fillAlpha="0.14" />
+
+    <!-- calendar, background element -->
+    <path
+        android:pathData="M132,45 H96 C92.6863,45 90,47.6863 90,51 V81 C90,84.3137 92.6863,87 96,87 H132 C135.314,87 138,84.3137 138,81 V51 C138,47.6863 135.314,45 132,45 Z"
+        android:strokeColor="#A3A3A8"
+        android:strokeAlpha="0.34"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M90,58 H138"
+        android:strokeColor="#A3A3A8"
+        android:strokeAlpha="0.34"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M101,39 V51 M127,39 V51"
+        android:strokeColor="#A3A3A8"
+        android:strokeAlpha="0.34"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M122,73 C123.657,73 125,71.6569 125,70 C125,68.3431 123.657,67 122,67 C120.343,67 119,68.3431 119,70 C119,71.6569 120.343,73 122,73 Z"
+        android:fillColor="#FF9245" />
+
+    <!-- dashed reminder path (stroke-dasharray "1 6" resampled along the bezier) -->
+    <path
+        android:pathData="M138.00,62.00 L138.89,61.54 M144.26,58.86 L145.16,58.43 M150.63,55.96 L151.55,55.57
+                           M157.11,53.31 L158.04,52.96 M163.69,50.95 L164.64,50.63 M170.38,48.88 L171.35,48.62
+                           M177.16,47.15 L178.14,46.93 M184.03,45.79 L185.01,45.62 M190.96,44.81 L191.95,44.71
+                           M197.94,44.27 L198.94,44.23 M204.94,44.20 L205.94,44.23 M211.92,44.62 L212.92,44.73
+                           M218.85,45.57 L219.84,45.75 M225.69,47.08 L226.65,47.34 M232.37,49.15 L233.31,49.49
+                           M238.86,51.78 L239.76,52.20 M245.09,54.97 L245.95,55.47"
+        android:strokeColor="#FF9245"
+        android:strokeAlpha="0.4"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+
+    <!-- bell glow -->
+    <path
+        android:pathData="M276,94 C293.673,94 308,79.6731 308,62 C308,44.3269 293.673,30 276,30 C258.327,30 244,44.3269 244,62 C244,79.6731 258.327,94 276,94 Z"
+        android:fillAlpha="0.85">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="276"
+                android:centerY="62"
+                android:gradientRadius="32">
+                <item android:offset="0" android:color="#CCFF9245" />
+                <item android:offset="0.55" android:color="#42FF6A00" />
+                <item android:offset="1" android:color="#00FF6A00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- bell icon -->
+    <path
+        android:pathData="M276,44 C279.448,44 282.754,45.3696 285.192,47.8076 C287.63,50.2456 289,53.5522 289,57 V63 L294,70 H258 L263,63 V57 C263,53.5522 264.37,50.2456 266.808,47.8076 C269.246,45.3696 272.552,44 276,44 Z"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M271,70 C271,71.3261 271.527,72.5979 272.464,73.5355 C273.402,74.4732 274.674,75 276,75 C277.326,75 278.598,74.4732 279.536,73.5355 C280.473,72.5979 281,71.3261 281,70"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M276,44 V39"
+        android:strokeColor="#FFE2CB"
+        android:strokeAlpha="0.92"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- ring accents -->
+    <path
+        android:pathData="M252,40 C246.667,34.6667 246,28.6667 250,22"
+        android:strokeColor="#FF9245"
+        android:strokeAlpha="0.4"
+        android:strokeWidth="1.6" />
+    <path
+        android:pathData="M244,46 C234.667,42 231.333,34 234,22"
+        android:strokeColor="#FF9245"
+        android:strokeAlpha="0.4"
+        android:strokeWidth="1.6" />
+</vector>
