@@ -67,7 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_nav_tab_inactive"
+            android:background="@drawable/bg_nav_tab_active"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -77,7 +77,7 @@
                 android:id="@+id/tabPartidosIcon"
                 android:layout_width="30dp"
                 android:layout_height="26dp"
-                android:src="@drawable/ic_nav_partidos_inactive"
+                android:src="@drawable/ic_nav_partidos_active"
                 android:contentDescription="@null" />
 
             <TextView
@@ -88,9 +88,13 @@
                 android:fontFamily="sans-serif-medium"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.02"
+                android:shadowColor="#80FF6A00"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="8"
                 android:text="@string/title_matches"
                 android:textAllCaps="true"
-                android:textColor="@color/nav_tab_inactive_label"
+                android:textColor="@color/nav_tab_active_label"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -106,7 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_nav_tab_active"
+            android:background="@drawable/bg_nav_tab_inactive"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -116,7 +120,7 @@
                 android:id="@+id/tabTorneosIcon"
                 android:layout_width="29dp"
                 android:layout_height="27.43dp"
-                android:src="@drawable/ic_nav_torneos_active"
+                android:src="@drawable/ic_nav_torneos_inactive"
                 android:contentDescription="@null" />
 
             <TextView
@@ -127,9 +131,13 @@
                 android:fontFamily="sans-serif-medium"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.02"
+                android:shadowColor="#80FF6A00"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="8"
                 android:text="@string/title_home"
                 android:textAllCaps="true"
-                android:textColor="@color/nav_tab_active_label"
+                android:textColor="@color/nav_tab_inactive_label"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 

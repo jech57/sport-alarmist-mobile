@@ -19,8 +19,23 @@
 
     <!-- Bottom nav pill (frame "Torneos" / "Inscripción a triángulo" en Figma) -->
     <color name="nav_tab_active_bg">#14FF9245</color>
+    <!-- nav_tab_active_bg (rgba(255,146,69,0.08)) pre-composited over the
+         screen background's dark bottom stop (#0E0E10, see bg_screen_gradient),
+         at 90% opacity. Needed because bg_nav_tab_active.xml layers this fill
+         ON TOP OF a near-opaque gradient border, not directly on the dot
+         texture: using the real 8%-alpha color there lets ~92% of the
+         gradient underneath bleed through (verified in a browser mockup —
+         the pill rendered as a solid orange block instead of a subtle tint).
+         Same alpha-over technique as dot_tile.png's pre-composited color. -->
+    <color name="nav_tab_active_bg_opaque">#E6211814</color>
     <color name="nav_tab_active_border">#F2FFC69C</color>
     <color name="nav_tab_inactive_border">#59A3A3A8</color>
     <color name="nav_tab_active_label">#FF9245</color>
     <color name="nav_tab_inactive_label">#A3A3A8</color>
+
+    <!-- Matches screen: app bar, search bar y tabs Voy/No voy/Pendientes. -->
+    <color name="surface_container">#1B1B1F</color>
+    <color name="search_bar_border">#59FFFFFF</color>
+    <color name="divider_subtle">#1FFFFFFF</color>
+    <color name="matches_tab_selected_bg">#412B1C</color>
 </resources>

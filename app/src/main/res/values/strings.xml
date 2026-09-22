@@ -7,4 +7,13 @@
     <string name="title_registration">Inscripción a torneo</string>
     <string name="title_attendance_confirmation">Confirmación de asistencia</string>
     <string name="title_matches">Partidos</string>
+
+    <string name="title_app_bar_alarms">Alarmas</string>
+    <string name="hint_filter_by_tournament">Filtrar por torneo...</string>
+    <string name="tab_going">Voy</string>
+    <string name="tab_not_going">No voy</string>
+    <string name="tab_pending">Pendientes</string>
+    <string name="empty_state_matches_going">No has confirmado tu asistencia a ningún partido. Revisa las demás pestañas. Si no encuentras ningún partido, verifica que hagas parte de un torneo.</string>
+    <string name="empty_state_matches_not_going">No has negado tu asistencia a ningún partido. Revisa las demás pestañas. Si no encuentras ningún partido, verifica que hagas parte de un torneo.</string>
+    <string name="empty_state_matches_pending">No tienes ningún partido pendiente por confirmar asistencia. Revisa las demás pestañas. Si no encuentras ningún partido, verifica que hagas parte de un torneo.</string>
 </resources>

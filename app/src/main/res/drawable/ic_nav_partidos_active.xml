@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  icon/partidos (nav), active state — rounded-rect body confirmed by the
-  user via raw SVG (viewBox 0 0 30 26, tightly cropped to the glyph
-  instead of the blur-bleed bounding box the earlier version used, same
-  fix already applied to the trophy active icon). The divider and hanger
-  lines aren't in the corner the user pasted, but stay in the design
-  (same relative position, offset into this tighter viewport) — they were
-  wrongly stroked #0E0E10 (invisible knockout) before; the user confirmed
-  they should read as a visible gray, same family as the inactive icon.
+  icon/partidos (nav), active state — viewport (30x26) tightly cropped to
+  the glyph, not the blur-bleed bounding box. Divider/hanger lines are a
+  visible gray, not the #0E0E10 knockout color used before.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="30dp"

@@ -7,13 +7,111 @@
     android:layout_height="match_parent"
     tools:context=".ui.matches.MatchesFragment">
 
+    <!-- App bar "Alarmas" (Small-centered, nodo 30:1857). -->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_matches"
+        android:id="@+id/appBarTitle"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:text="@string/title_app_bar_alarms"
         android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Search bar "Filtrar por torneo..." (nodo 30:1839). -->
+    <LinearLayout
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="115dp"
+        android:layout_marginEnd="21dp"
+        android:background="@drawable/bg_search_bar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_menu"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hint_filter_by_tournament"
+            android:textColor="@color/nav_tab_inactive_label"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Tabs Voy / No voy / Pendientes (nodo 30:1858). -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/matchesTabs"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="184dp"
+        android:background="@color/surface_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@drawable/bg_matches_tab"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/orange_primary"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/TextAppearance.MatchesTab"
+        app:tabTextColor="@color/nav_tab_inactive_label">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_going" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_not_going" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_pending" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_subtle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchesTabs" />
+
+    <!-- Empty state (nodo 30:1850 "Voy" / 14:6371 "No voy" / 14:6291 "Pendientes"):
+         el texto cambia acorde al tab seleccionado, ver MatchesFragment. -->
+    <TextView
+        android:id="@+id/emptyStateText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="416dp"
+        android:layout_marginEnd="38dp"
+        android:gravity="center"
+        android:text="@string/empty_state_matches_going"
+        android:textColor="@color/nav_tab_inactive_label"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
