@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  "Glow azul" + "Glow naranja" from Figma node 30:1838. Both are radial
+  gradients; the orange one is elliptical (rx 150 / ry 130) which
+  VectorDrawable's gradient can't express (circular radius only), so it's
+  approximated with a circle at the larger axis (rx 150) — barely
+  noticeable at this opacity.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="412dp"
+    android:height="220dp"
+    android:viewportWidth="412"
+    android:viewportHeight="220">
+
+    <!-- Glow azul: center (80,70) r150 -->
+    <path android:pathData="M-70,70 A150,150 0 1,0 230,70 A150,150 0 1,0 -70,70 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="80"
+                android:centerY="70"
+                android:gradientRadius="150">
+                <item android:offset="0" android:color="#333B82F6" />
+                <item android:offset="1" android:color="#003B82F6" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glow naranja: center (330,60) r150 (rx150/ry130 ellipse approximated as circle) -->
+    <path android:pathData="M180,60 A150,150 0 1,0 480,60 A150,150 0 1,0 180,60 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="330"
+                android:centerY="60"
+                android:gradientRadius="150">
+                <item android:offset="0" android:color="#29FF6A00" />
+                <item android:offset="1" android:color="#00FF6A00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

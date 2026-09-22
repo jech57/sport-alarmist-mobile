@@ -16,4 +16,11 @@
     <color name="orange_secondary_container">#3A2000</color>
 
     <color name="silver_chalice">#ADAAAA</color>
+
+    <!-- Bottom nav pill (frame "Torneos" / "Inscripción a triángulo" en Figma) -->
+    <color name="nav_tab_active_bg">#14FF9245</color>
+    <color name="nav_tab_active_border">#F2FFC69C</color>
+    <color name="nav_tab_inactive_border">#59A3A3A8</color>
+    <color name="nav_tab_active_label">#FF9245</color>
+    <color name="nav_tab_inactive_label">#A3A3A8</color>
 </resources>

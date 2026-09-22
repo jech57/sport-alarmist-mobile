@@ -5,8 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_screen_gradient"
     android:fitsSystemWindows="true"
     tools:context=".ui.MainActivity">
+
+    <!-- Textura de puntos + glow azul/naranja del mockup (Figma node 30:1838):
+         se pinta una sola vez acá, detrás del NavHost, para que se comparta
+         entre todas las pantallas en vez de repetirla por fragment. -->
+    <View
+        android:id="@+id/textureTop"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_texture_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/textureBottom"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_texture_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -14,18 +36,105 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@id/navTabRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
+    <!-- Bottom nav: no es un BottomNavigationView estándar. En el mockup cada
+         tab es su propia "pill" (borde redondeado 14dp, fondo solo en el
+         seleccionado). El label está siempre visible; solo cambia de color
+         (naranja con glow si está seleccionado, gris si no) — se replica
+         a mano en vez de con el componente de Material, que no soporta ese
+         borde por-ítem. -->
+    <LinearLayout
+        android:id="@+id/navTabRow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/surface"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Partidos: siempre a la izquierda (nodos 30:1537 / 30:1856). -->
+        <LinearLayout
+            android:id="@+id/tabPartidos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_nav_tab_inactive"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tabPartidosIcon"
+                android:layout_width="30dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_nav_partidos_inactive"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tabPartidosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:text="@string/title_matches"
+                android:textAllCaps="true"
+                android:textColor="@color/nav_tab_inactive_label"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="11dp"
+            android:layout_height="1dp" />
+
+        <!-- Torneos: siempre a la derecha (nodos 87:10958 / 87:11069). -->
+        <LinearLayout
+            android:id="@+id/tabTorneos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_nav_tab_active"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tabTorneosIcon"
+                android:layout_width="29dp"
+                android:layout_height="27.43dp"
+                android:src="@drawable/ic_nav_torneos_active"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tabTorneosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:text="@string/title_home"
+                android:textAllCaps="true"
+                android:textColor="@color/nav_tab_active_label"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

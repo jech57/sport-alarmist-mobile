@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_tournamentDetailFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_tournamentDetailFragment_to_attendanceConfirmationFragment"
+            app:destination="@id/attendanceConfirmationFragment" />
     </fragment>
 
     <fragment
@@ -38,10 +41,20 @@
     </fragment>
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.misw.sportalarmist.ui.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile">
+        android:id="@+id/attendanceConfirmationFragment"
+        android:name="com.misw.sportalarmist.ui.attendance.AttendanceConfirmationFragment"
+        android:label="@string/title_attendance_confirmation"
+        tools:layout="@layout/fragment_attendance_confirmation">
+        <argument
+            android:name="tournament_id"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/matchesFragment"
+        android:name="com.misw.sportalarmist.ui.matches.MatchesFragment"
+        android:label="@string/title_matches"
+        tools:layout="@layout/fragment_matches">
     </fragment>
 
 </navigation>

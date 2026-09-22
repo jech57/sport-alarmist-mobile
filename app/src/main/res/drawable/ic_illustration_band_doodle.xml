@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Reconstructed from the "Torneos — Alarmas" design canvas (Main.dc.html,
+  illustration band: court + racket + basketball + dashed trajectory + ball),
+  the same source used for the web empty-state-doodle component — not redrawn
+  by hand. Both dashed curves (hero trajectory "7 8" and basketball bounce arc
+  "3 6") were resampled along their original bezier/quadratic curves and
+  rebuilt as discrete dash segments, since VectorDrawable has no
+  stroke-dasharray. The Gaussian-blur glow filter has no VectorDrawable
+  equivalent either; the radial/linear gradients' own alpha falloff carries
+  the glow.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="412dp"
+    android:height="132dp"
+    android:viewportWidth="412"
+    android:viewportHeight="132">
+
+    <!-- court lines: halfway arc + baseline + corner -->
+    <path
+        android:pathData="M-10,118 H422 M206,132 m-72,0 a72,46 0 0,1 144,0 M36,132 V96 H128 M376,132 V96 H292 M206,96 V132"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.08"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M-10,118 H120"
+        android:strokeColor="#3B82F6"
+        android:strokeAlpha="0.16"
+        android:strokeWidth="1.5" />
+
+    <!-- background layer: tennis racket (far) -->
+    <group android:translateX="52" android:translateY="62" android:rotation="-24">
+        <path
+            android:pathData="M-15,0 A15,19 0 1,0 15,0 A15,19 0 1,0 -15,0 Z"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.28"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M0,19 V29"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.28"
+            android:strokeWidth="2.5"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M-3.6,29 h7.2 v9 h-7.2 z"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.28"
+            android:strokeWidth="2"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M-9,-13 V13 M0,-18 V18 M9,-13 V13"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.16"
+            android:strokeWidth="1" />
+        <path
+            android:pathData="M-13,-8 H13 M-14.6,0 H14.6 M-13,8 H13"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.16"
+            android:strokeWidth="1" />
+    </group>
+
+    <!-- background layer: basketball + bounce arc (far right), dash "3 6" resampled -->
+    <path
+        android:pathData="M320.00,116.00 L321.63,113.48 M325.31,108.75 L327.43,106.62 M332.42,103.35 L335.31,102.57
+                           M341.16,103.48 L343.76,104.96 M348.19,108.99 L350.09,111.31"
+        android:strokeColor="#A3A3A8"
+        android:strokeAlpha="0.22"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round" />
+    <group android:translateX="352" android:translateY="114">
+        <path
+            android:pathData="M-9,0 A9,9 0 1,0 9,0 A9,9 0 1,0 -9,0 Z"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.30"
+            android:strokeWidth="1.8" />
+        <path
+            android:pathData="M-9,0 H9 M0,-9 V9"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.30"
+            android:strokeWidth="1.8"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M-6.4,-6.4 q6.4,6.4 0,12.8 M6.4,-6.4 q-6.4,6.4 0,12.8"
+            android:strokeColor="#A3A3A8"
+            android:strokeAlpha="0.18"
+            android:strokeWidth="1.8"
+            android:strokeLineCap="round" />
+    </group>
+
+    <!-- tactical board markers -->
+    <path
+        android:pathData="M132,104 l7,7 M139,104 l-7,7"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.14"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M263.6,100 A4.4,4.4 0 1,0 272.4,100 A4.4,4.4 0 1,0 263.6,100 Z"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.14"
+        android:strokeWidth="1.6" />
+
+    <!-- hero: soft glow trail (continuous, linear gradient stroke) -->
+    <path
+        android:pathData="M58,112 C 118,44 196,30 262,56"
+        android:strokeAlpha="0.30"
+        android:strokeWidth="9"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="58" android:startY="112"
+                android:endX="262" android:endY="56">
+                <item android:offset="0" android:color="#267A3300" />
+                <item android:offset="0.55" android:color="#BFFF6A00" />
+                <item android:offset="1" android:color="#F2FFC69C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- hero: dashed trajectory, dash "7 8" resampled along the same curve -->
+    <path
+        android:pathData="M58.00,112.00 L62.70,106.82 M68.26,101.06 L73.28,96.19 M79.20,90.81 L84.54,86.28
+                           M90.82,81.32 L96.46,77.18 M103.09,72.70 L109.03,69.00 M115.98,65.04 L122.20,61.82
+                           M129.45,58.44 L135.91,55.74 M143.41,52.98 L150.08,50.84 M157.80,48.74 L164.62,47.19
+                           M172.50,45.78 L179.43,44.84 M187.40,44.13 L194.39,43.82 M202.39,43.82 L209.38,44.13
+                           M217.35,44.83 L224.29,45.76 M232.17,47.16 L239.00,48.69 M246.72,50.76 L253.40,52.86
+                           M260.92,55.58 L262.00,56.00"
+        android:strokeWidth="2"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="58" android:startY="112"
+                android:endX="262" android:endY="56">
+                <item android:offset="0" android:color="#267A3300" />
+                <item android:offset="0.55" android:color="#BFFF6A00" />
+                <item android:offset="1" android:color="#F2FFC69C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- ball glow -->
+    <path android:pathData="M248,62 A30,30 0 1,0 308,62 A30,30 0 1,0 248,62 Z" android:fillAlpha="0.75">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="278"
+                android:centerY="62"
+                android:gradientRadius="30">
+                <item android:offset="0" android:color="#D9FF9245" />
+                <item android:offset="0.55" android:color="#4DFF6A00" />
+                <item android:offset="1" android:color="#00FF6A00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- ball icon -->
+    <group android:translateX="278" android:translateY="62">
+        <path
+            android:pathData="M-15,0 A15,15 0 1,0 15,0 A15,15 0 1,0 -15,0 Z"
+            android:fillColor="#0E0E10"
+            android:strokeColor="#FF9245"
+            android:strokeWidth="2" />
+        <path
+            android:pathData="M0,-7.4 6.8,-2.2 4.2,5.8 -4.2,5.8 -6.8,-2.2 Z"
+            android:strokeColor="#FF9245"
+            android:strokeAlpha="0.75"
+            android:strokeWidth="1.6"
+            android:strokeLineJoin="round" />
+        <path
+            android:pathData="M0,-7.4 V-15 M6.8,-2.2 13.8,-6.2 M4.2,5.8 8.8,12.6 M-4.2,5.8 -8.8,12.6 M-6.8,-2.2 -13.8,-6.2"
+            android:strokeColor="#FF9245"
+            android:strokeAlpha="0.75"
+            android:strokeWidth="1.6"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

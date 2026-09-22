@@ -1,15 +1,15 @@
-package com.misw.sportalarmist.ui.profile
+package com.misw.sportalarmist.ui.attendance
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.misw.sportalarmist.databinding.FragmentProfileBinding
+import com.misw.sportalarmist.databinding.FragmentAttendanceConfirmationBinding
 
-class ProfileFragment : Fragment() {
+class AttendanceConfirmationFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentAttendanceConfirmationBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentAttendanceConfirmationBinding.inflate(inflater, container, false)
         return binding.root
     }
 

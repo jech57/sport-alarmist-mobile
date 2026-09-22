@@ -5,5 +5,6 @@
     <string name="title_home">Torneos</string>
     <string name="title_tournament_detail">Detalle del torneo</string>
     <string name="title_registration">Inscripción a torneo</string>
-    <string name="title_profile">Perfil</string>
+    <string name="title_attendance_confirmation">Confirmación de asistencia</string>
+    <string name="title_matches">Partidos</string>
 </resources>
