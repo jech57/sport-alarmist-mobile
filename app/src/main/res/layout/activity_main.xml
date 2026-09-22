@@ -44,7 +44,8 @@
 
     <!-- Bottom nav: no es un BottomNavigationView estándar. En el mockup cada
          tab es su propia "pill" (borde redondeado 14dp, fondo solo en el
-         seleccionado, label visible solo en el seleccionado) — se replica
+         seleccionado). El label está siempre visible; solo cambia de color
+         (naranja con glow si está seleccionado, gris si no) — se replica
          a mano en vez de con el componente de Material, que no soporta ese
          borde por-ítem. -->
     <LinearLayout
@@ -60,44 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/tabTorneos"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/bg_nav_tab_active"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="5dp">
-
-            <ImageView
-                android:id="@+id/tabTorneosIcon"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:src="@drawable/ic_nav_torneos_active"
-                android:contentDescription="@null" />
-
-            <TextView
-                android:id="@+id/tabTorneosLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.02"
-                android:text="@string/title_home"
-                android:textAllCaps="true"
-                android:textColor="@color/nav_tab_active_label"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="11dp"
-            android:layout_height="1dp" />
-
+        <!-- Partidos: siempre a la izquierda (nodos 30:1537 / 30:1856). -->
         <LinearLayout
             android:id="@+id/tabPartidos"
             android:layout_width="0dp"
@@ -111,8 +75,8 @@
 
             <ImageView
                 android:id="@+id/tabPartidosIcon"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="30dp"
+                android:layout_height="26dp"
                 android:src="@drawable/ic_nav_partidos_inactive"
                 android:contentDescription="@null" />
 
@@ -120,15 +84,54 @@
                 android:id="@+id/tabPartidosLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
                 android:letterSpacing="0.02"
                 android:text="@string/title_matches"
                 android:textAllCaps="true"
+                android:textColor="@color/nav_tab_inactive_label"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="11dp"
+            android:layout_height="1dp" />
+
+        <!-- Torneos: siempre a la derecha (nodos 87:10958 / 87:11069). -->
+        <LinearLayout
+            android:id="@+id/tabTorneos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_nav_tab_active"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tabTorneosIcon"
+                android:layout_width="29dp"
+                android:layout_height="27.43dp"
+                android:src="@drawable/ic_nav_torneos_active"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tabTorneosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:text="@string/title_home"
+                android:textAllCaps="true"
                 android:textColor="@color/nav_tab_active_label"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 

@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Ported verbatim from Figma's SVG export of node 87:10985 ("icon/torneos
-  (nav)", active state). The double drop-shadow glow filter has no
-  VectorDrawable equivalent, so it was dropped — the two-tone orange stroke
-  (#FF9245 cup / #FF6A00 base) already carries most of the glow read.
+  icon/torneos (nav), active state — same glyph as node 87:11069, but the
+  viewport was re-cropped from the original 47x46 (blur-bleed bounding box)
+  down to a tight ~1.05dp margin around the visible ink (same padding
+  convention as the partidos icon). The 47x46 version had ~10dp of hidden
+  padding on top/bottom that the partidos icon didn't have, so centering
+  both icons with the same gravity/margins produced visibly different
+  vertical alignment between the two tabs.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="46.75"
-    android:viewportHeight="45.3">
+    android:width="29dp"
+    android:height="27.43dp"
+    android:viewportWidth="29"
+    android:viewportHeight="27.43">
     <path
-        android:pathData="M15.4583,10.05H31.2917V16.3833C31.2917,18.483 30.4576,20.4966 28.9729,21.9813C27.4883,23.4659 25.4746,24.3 23.375,24.3C21.2754,24.3 19.2617,23.4659 17.7771,21.9813C16.2924,20.4966 15.4583,18.483 15.4583,16.3833V10.05Z"
+        android:pathData="M6.5884,1.05 H22.4217 V7.3834 C22.4217,9.483 21.5876,11.4966 20.103,12.9813 C18.6183,14.466 16.6047,15.3 14.505,15.3 C12.4054,15.3 10.3918,14.466 8.9071,12.9813 C7.4224,11.4966 6.5884,9.483 6.5884,7.3834 V1.05 Z"
         android:strokeColor="#FF9245"
         android:strokeWidth="2.1"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:pathData="M15.4583,12.425H12.2917C11.6618,12.425 11.0577,12.6752 10.6123,13.1206C10.1669,13.566 9.91667,14.1701 9.91667,14.8V16.3833C10.1084,17.712 10.7758,18.9259 11.7951,19.7995C12.8143,20.6731 14.116,21.1471 15.4583,21.1333M31.2917,12.425H34.4583C35.0882,12.425 35.6923,12.6752 36.1377,13.1206C36.5831,13.566 36.8333,14.1701 36.8333,14.8V16.3833C36.6416,17.712 35.9742,18.9259 34.9549,19.7995C33.9357,20.6731 32.634,21.1471 31.2917,21.1333"
+        android:pathData="M6.5883,3.425 H3.4216 C2.7917,3.425 2.1876,3.6753 1.7422,4.1207 C1.2968,4.5661 1.04663,5.1702 1.04663,5.8 V7.3834 C1.2383,8.712 1.9058,9.9259 2.925,10.7996 C3.9443,11.6732 5.246,12.1471 6.5883,12.1334"
         android:strokeColor="#FF6A00"
         android:strokeWidth="1.83333"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:pathData="M23.375,23.5083V29.05"
+        android:pathData="M22.4216,3.425 H25.5883 C26.2182,3.425 26.8223,3.6753 27.2677,4.1207 C27.7131,4.5661 27.9633,5.1702 27.9633,5.8 V7.3834 C27.7716,8.712 27.1041,9.9259 26.0849,10.7996 C25.0657,11.6732 23.764,12.1471 22.4216,12.1334"
         android:strokeColor="#FF6A00"
         android:strokeWidth="1.83333"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:pathData="M17.8333,35.3833H28.9167"
+        android:pathData="M14.505,14.5085 V20.0502"
         android:strokeColor="#FF6A00"
         android:strokeWidth="1.83333"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:pathData="M19.7333,29.6833L17.8333,35.3833M27.0167,29.6833L28.9167,35.3833"
+        android:pathData="M8.9634,26.3835 H20.0467"
+        android:strokeColor="#FF6A00"
+        android:strokeWidth="1.83333"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M10.8634,20.6833 L8.9634,26.3834 M18.1467,20.6833 L20.0467,26.3834"
         android:strokeColor="#FF6A00"
         android:strokeWidth="1.83333"
         android:strokeLineCap="round"

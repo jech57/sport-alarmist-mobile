@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Ported verbatim from Figma's SVG export of node 93:1729 ("icon/partidos (nav)", inactive state). -->
+<!--
+  icon/partidos (nav), inactive state — same glyph and viewport as
+  ic_nav_partidos_active.xml (node 93:1773), just recolored to a flat
+  light gray instead of orange. Per the user: selected and unselected
+  are the same shape, only the color changes.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="34"
-    android:viewportHeight="34">
+    android:width="30dp"
+    android:height="26dp"
+    android:viewportWidth="30"
+    android:viewportHeight="26">
     <path
-        android:pathData="M25.3333,0.3335H9.75C7.40279,0.3335 5.5,2.23629 5.5,4.5835V17.3335C5.5,19.6807 7.40279,21.5835 9.75,21.5835H25.3333C27.6805,21.5835 29.5833,19.6807 29.5833,17.3335V4.5835C29.5833,2.23629 27.6805,0.3335 25.3333,0.3335Z"
+        android:pathData="M23.2167,1.05005H5.79999C3.17664,1.05005 1.04999,3.1767 1.04999,5.80005V20.05C1.04999,22.6734 3.17664,24.8 5.79999,24.8H23.2167C25.84,24.8 27.9667,22.6734 27.9667,20.05V5.80005C27.9667,3.1767 25.84,1.05005 23.2167,1.05005Z"
+        android:strokeColor="#A3A3A8"
+        android:strokeWidth="2.1"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M1.05,8.175H27.9667"
         android:strokeColor="#A3A3A8"
         android:strokeWidth="1.83333"
         android:strokeLineCap="round"
         android:strokeLineJoin="round" />
     <path
-        android:pathData="M5.5,6.7085H29.5833"
-        android:strokeColor="#A3A3A8"
-        android:strokeWidth="1.83333"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round" />
-    <path
-        android:pathData="M11.875,-2.5V1.75 M23.2083,-2.5V1.75"
+        android:pathData="M8.175,-2.1166V2.6334 M20.8417,-2.1166V2.6334"
         android:strokeColor="#A3A3A8"
         android:strokeWidth="1.83333"
         android:strokeLineCap="round"
