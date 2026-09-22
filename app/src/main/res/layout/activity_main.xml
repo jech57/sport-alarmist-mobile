@@ -5,9 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/bg_screen_gradient"
     android:fitsSystemWindows="true"
     tools:context=".ui.MainActivity">
+
+    <!-- Textura de puntos + glow azul/naranja del mockup (Figma node 30:1838):
+         se pinta una sola vez acá, detrás del NavHost, para que se comparta
+         entre todas las pantallas en vez de repetirla por fragment. -->
+    <View
+        android:id="@+id/textureTop"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_texture_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/textureBottom"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_texture_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

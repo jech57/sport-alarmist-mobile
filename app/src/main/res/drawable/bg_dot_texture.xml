@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Dot grid, ported from Figma's three stacked layers ("Textura blanca/azul/naranja"),
+  each the exact same 19x10 dot grid (22.76dp x 24.18dp spacing) at group
+  opacities 0.16/0.22/0.18 with fill white/#3B82F6/#FF6A00. Rebuilding three
+  full 190-dot vector layers per screen would be excessive, and Android has
+  no vector-tiling primitive anyway, so the three layers were pre-composited
+  (alpha-over, in that stacking order) into one dot color/alpha
+  (#76B39498) baked into a single tileable bitmap (dot_tile.png), used here
+  with a repeating BitmapDrawable — the correct Android primitive for a
+  repeating pattern.
+-->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/dot_tile"
+    android:tileModeX="repeat"
+    android:tileModeY="repeat"
+    android:gravity="fill" />
