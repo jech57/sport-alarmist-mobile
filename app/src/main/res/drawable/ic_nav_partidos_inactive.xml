@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   icon/partidos (nav), inactive state — same glyph and viewport as
-  ic_nav_partidos_active.xml (node 93:1773), just recolored to a flat
-  light gray instead of orange. Per the user: selected and unselected
-  are the same shape, only the color changes.
+  ic_nav_partidos_active.xml, recolored to flat light gray. Selected and
+  unselected share the same shape; only the color changes.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="30dp"

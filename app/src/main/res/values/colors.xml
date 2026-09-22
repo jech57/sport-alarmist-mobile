@@ -33,14 +33,9 @@
     <color name="nav_tab_active_label">#FF9245</color>
     <color name="nav_tab_inactive_label">#A3A3A8</color>
 
-    <!-- Matches screen (frame "Inicio - voy", nodo 30:1838): app bar,
-         search bar y tabs Voy/No voy/Pendientes. -->
+    <!-- Matches screen: app bar, search bar y tabs Voy/No voy/Pendientes. -->
     <color name="surface_container">#1B1B1F</color>
     <color name="search_bar_border">#59FFFFFF</color>
     <color name="divider_subtle">#1FFFFFFF</color>
-    <!-- Fill del tab seleccionado (nodo 30:1861 "Tab 1", selected=True).
-         Sampleado directamente de un screenshot aislado del nodo (sin el
-         glow de la pantalla contaminando la lectura): #412B1C, sólido,
-         cubre toda la celda del tab. -->
     <color name="matches_tab_selected_bg">#412B1C</color>
 </resources>
