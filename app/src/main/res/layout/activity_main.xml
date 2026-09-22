@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:fitsSystemWindows="true"
     tools:context=".ui.MainActivity">
 
@@ -14,18 +15,102 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@id/navTabRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
+    <!-- Bottom nav: no es un BottomNavigationView estándar. En el mockup cada
+         tab es su propia "pill" (borde redondeado 14dp, fondo solo en el
+         seleccionado, label visible solo en el seleccionado) — se replica
+         a mano en vez de con el componente de Material, que no soporta ese
+         borde por-ítem. -->
+    <LinearLayout
+        android:id="@+id/navTabRow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/surface"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/tabTorneos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_nav_tab_active"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:id="@+id/tabTorneosIcon"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@drawable/ic_nav_torneos_active"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tabTorneosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.02"
+                android:text="@string/title_home"
+                android:textAllCaps="true"
+                android:textColor="@color/nav_tab_active_label"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="11dp"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:id="@+id/tabPartidos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_nav_tab_inactive"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tabPartidosIcon"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/ic_nav_partidos_inactive"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tabPartidosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.02"
+                android:text="@string/title_matches"
+                android:textAllCaps="true"
+                android:textColor="@color/nav_tab_active_label"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

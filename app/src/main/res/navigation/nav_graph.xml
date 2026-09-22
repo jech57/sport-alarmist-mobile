@@ -51,10 +51,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.misw.sportalarmist.ui.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile">
+        android:id="@+id/matchesFragment"
+        android:name="com.misw.sportalarmist.ui.matches.MatchesFragment"
+        android:label="@string/title_matches"
+        tools:layout="@layout/fragment_matches">
     </fragment>
 
 </navigation>
