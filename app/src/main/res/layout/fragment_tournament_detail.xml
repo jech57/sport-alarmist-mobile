@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
         android:layout_marginTop="122dp"
-        android:text="@string/tournament_sample_name"
         android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -43,6 +42,22 @@
         android:layout_marginTop="205dp"
         android:layout_marginEnd="21dp"
         layout="@layout/component_search_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/noResultsText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="38dp"
+        android:gravity="center"
+        android:text="@string/search_no_results"
+        android:textColor="@color/nav_tab_inactive_label"
+        android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

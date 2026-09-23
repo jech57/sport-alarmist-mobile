@@ -20,6 +20,7 @@
     <string name="hint_search_tournament">Buscar torneo...</string>
     <string name="tournament_sample_name">Torneo 1</string>
     <string name="tournament_status_not_registered">No inscrito</string>
+    <string name="tournament_status_registered">Inscrito</string>
 
     <string name="subtitle_select_team">Selecciona un equipo</string>
     <string name="hint_search_team">Buscar equipo...</string>
@@ -34,4 +35,6 @@
     <string name="helper_team_password">Si no la conoces, pregúntale al organizador del torneo</string>
     <string name="action_cancel">Cancelar</string>
     <string name="action_register">Inscribirme</string>
+
+    <string name="search_no_results">No se han encontrado resultados</string>
 </resources>

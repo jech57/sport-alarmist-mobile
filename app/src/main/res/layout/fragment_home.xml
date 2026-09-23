@@ -18,60 +18,15 @@
     <!-- Listado de torneos: es el contenido principal de la pantalla. La
          ilustración de abajo es solo decoración de fondo, no debe competir
          visualmente con esto. -->
-    <LinearLayout
-        android:id="@+id/tournamentItem"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tournamentsList"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="0dp"
         android:layout_marginTop="200dp"
-        android:background="@color/surface_container"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:text="@string/tournament_sample_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/tournament_status_not_registered"
-                android:textColor="@color/nav_tab_inactive_label"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_chevron_right"
-            android:contentDescription="@null" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider_subtle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tournamentItem" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Illustration band (trofeo): decorativa, anclada al fondo, detrás
          del listado. -->
@@ -86,5 +41,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/noResultsText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="38dp"
+        android:gravity="center"
+        android:text="@string/search_no_results"
+        android:textColor="@color/nav_tab_inactive_label"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

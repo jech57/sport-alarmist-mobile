@@ -28,13 +28,18 @@
         android:src="@drawable/ic_menu"
         android:contentDescription="@null" />
 
-    <TextView
+    <EditText
         android:id="@+id/searchBarHint"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/hint_filter_by_tournament"
-        android:textColor="@color/nav_tab_inactive_label"
+        android:background="@null"
+        android:hint="@string/hint_filter_by_tournament"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/nav_tab_inactive_label"
         android:textSize="16sp" />
 
 </LinearLayout>

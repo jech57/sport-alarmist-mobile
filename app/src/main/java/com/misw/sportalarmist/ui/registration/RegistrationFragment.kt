@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.misw.sportalarmist.R
+import com.misw.sportalarmist.data.EnrollmentStore
 import com.misw.sportalarmist.data.RegistrationDraft
 import com.misw.sportalarmist.data.RegistrationDraftStore
 import com.misw.sportalarmist.databinding.FragmentRegistrationBinding
@@ -20,6 +21,7 @@ class RegistrationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var draftStore: RegistrationDraftStore
+    private lateinit var enrollmentStore: EnrollmentStore
     private var tournamentId: Int = 0
     private var teamId: String = ""
 
@@ -36,6 +38,7 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         draftStore = RegistrationDraftStore(requireContext())
+        enrollmentStore = EnrollmentStore(requireContext())
         tournamentId = arguments?.getInt("tournament_id") ?: 0
         teamId = arguments?.getString("team_id") ?: TEAM_TRIANGULO
 
@@ -82,6 +85,7 @@ class RegistrationFragment : Fragment() {
         }
         binding.registerButton.button.setOnClickListener {
             saveDraft()
+            enrollmentStore.markEnrolled(tournamentId)
             findNavController().navigateUp()
         }
     }
