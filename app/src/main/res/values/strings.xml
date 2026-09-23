@@ -37,4 +37,7 @@
     <string name="action_register">Inscribirme</string>
 
     <string name="search_no_results">No se han encontrado resultados</string>
+
+    <string name="registration_success">Inscripción exitosa</string>
+    <string name="tournament_status_registered_team">Equipo: %1$s</string>
 </resources>

@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.misw.sportalarmist.R
+import com.misw.sportalarmist.data.Teams
 import com.misw.sportalarmist.data.Tournament
 
 class TournamentListAdapter(
-    private val isEnrolled: (Tournament) -> Boolean,
+    private val enrolledTeamId: (Tournament) -> String?,
     private val onClick: (Tournament) -> Unit
 ) : RecyclerView.Adapter<TournamentListAdapter.ViewHolder>() {
 
@@ -31,10 +32,15 @@ class TournamentListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tournament = items[position]
         holder.name.text = tournament.name
-        holder.status.setText(
-            if (isEnrolled(tournament)) R.string.tournament_status_registered
-            else R.string.tournament_status_not_registered
-        )
+
+        val teamId = enrolledTeamId(tournament)
+        holder.status.text = if (teamId != null) {
+            val teamName = Teams.ALL.firstOrNull { it.id == teamId }?.name.orEmpty()
+            holder.status.context.getString(R.string.tournament_status_registered_team, teamName)
+        } else {
+            holder.status.context.getString(R.string.tournament_status_not_registered)
+        }
+
         holder.itemView.setOnClickListener { onClick(tournament) }
     }
 

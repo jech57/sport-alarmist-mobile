@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -85,8 +86,18 @@ class RegistrationFragment : Fragment() {
         }
         binding.registerButton.button.setOnClickListener {
             saveDraft()
-            enrollmentStore.markEnrolled(tournamentId)
+            enrollmentStore.markEnrolled(tournamentId, teamId)
+            showRegistrationSuccessToast()
             findNavController().navigateUp()
+        }
+    }
+
+    private fun showRegistrationSuccessToast() {
+        val toastView = LayoutInflater.from(requireContext()).inflate(R.layout.toast_success, null)
+        Toast(requireContext()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = toastView
+            show()
         }
     }
 

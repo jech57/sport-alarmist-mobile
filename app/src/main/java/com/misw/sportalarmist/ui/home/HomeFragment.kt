@@ -49,14 +49,14 @@ class HomeFragment : Fragment() {
 
     private fun setUpTournamentsList() {
         tournamentsAdapter = TournamentListAdapter(
-            isEnrolled = { enrollmentStore.isEnrolled(it.id) },
+            enrolledTeamId = { enrollmentStore.enrolledTeamId(it.id) },
             onClick = { goToTournament(it) }
         )
         binding.tournamentsList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = tournamentsAdapter
         }
-        tournamentsAdapter.submitList(tournaments)
+        tournamentsAdapter.submitList(sortEnrolledFirst(tournaments))
     }
 
     private fun setUpSearch() {
@@ -67,12 +67,15 @@ class HomeFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 val query = s?.toString().orEmpty()
                 val matches = tournaments.filter { it.name.contains(query, ignoreCase = true) }
-                tournamentsAdapter.submitList(matches)
+                tournamentsAdapter.submitList(sortEnrolledFirst(matches))
                 binding.noResultsText.visibility = if (matches.isEmpty()) View.VISIBLE else View.GONE
                 binding.tournamentsList.visibility = if (matches.isEmpty()) View.GONE else View.VISIBLE
             }
         })
     }
+
+    private fun sortEnrolledFirst(list: List<Tournament>): List<Tournament> =
+        list.sortedByDescending { enrollmentStore.isEnrolled(it.id) }
 
     private fun goToTournament(tournament: Tournament) {
         findNavController().navigate(

@@ -1,24 +1,31 @@
 package com.misw.sportalarmist.data
 
 import android.content.Context
-import org.json.JSONArray
+import org.json.JSONObject
 import java.io.File
 
-/** Qué torneos confirmó el usuario con "Inscribirme", persistido en JSON local. */
+/** Qué torneos confirmó el usuario con "Inscribirme" y con qué equipo, persistido en JSON local. */
 class EnrollmentStore(private val context: Context) {
 
-    fun enrolledTournamentIds(): Set<Int> {
-        if (!file.exists()) return emptySet()
-        val array = JSONArray(file.readText())
-        return (0 until array.length()).map { array.getInt(it) }.toSet()
+    fun enrolledTeamId(tournamentId: Int): String? {
+        val root = readRoot()
+        val key = tournamentId.toString()
+        return if (root.has(key)) root.getString(key) else null
     }
 
-    fun isEnrolled(tournamentId: Int): Boolean = tournamentId in enrolledTournamentIds()
+    fun isEnrolled(tournamentId: Int): Boolean = enrolledTeamId(tournamentId) != null
 
-    fun markEnrolled(tournamentId: Int) {
-        val ids = enrolledTournamentIds() + tournamentId
-        file.writeText(JSONArray(ids.toList()).toString())
+    fun enrolledTournamentIds(): Set<Int> =
+        readRoot().keys().asSequence().map { it.toInt() }.toSet()
+
+    fun markEnrolled(tournamentId: Int, teamId: String) {
+        val root = readRoot()
+        root.put(tournamentId.toString(), teamId)
+        file.writeText(root.toString())
     }
+
+    private fun readRoot(): JSONObject =
+        if (file.exists()) JSONObject(file.readText()) else JSONObject()
 
     private val file: File
         get() = File(context.filesDir, FILE_NAME)
