@@ -40,4 +40,11 @@
     <color name="matches_tab_selected_bg">#412B1C</color>
 
     <color name="team_badge_blue">#3B82F6</color>
+
+    <!-- Botones (nodos 30:1811 "Cancelar" / 30:1812 "Inscribirme"). -->
+    <color name="button_border_neutral">#33FFFFFF</color>
+    <color name="button_fill_neutral">#262626</color>
+    <color name="button_text_neutral">#F5F5F7</color>
+    <color name="button_fill_primary">#FF6A00</color>
+    <color name="button_text_primary">#0E0E10</color>
 </resources>

@@ -25,4 +25,13 @@
     <string name="hint_search_team">Buscar equipo...</string>
     <string name="team_triangulo">Triángulo</string>
     <string name="team_estrella">Estrella</string>
+
+    <string name="title_registration_to_team">Inscripción a %1$s</string>
+    <string name="field_name">Nombre</string>
+    <string name="field_dorsal">Dorsal</string>
+    <string name="field_team_password">Contraseña del equipo</string>
+    <string name="hint_team_password">Contraseña</string>
+    <string name="helper_team_password">Si no la conoces, pregúntale al organizador del torneo</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_register">Inscribirme</string>
 </resources>

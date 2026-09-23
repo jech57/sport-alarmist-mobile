@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Campo de texto reutilizable (nodo 1:1586, M3 Outlined text field). El
+     hint/helper text por defecto son los de "Nombre"; las pantallas que
+     necesitan otro (Dorsal, Contraseña del equipo) los sobreescriben en
+     código, ver RegistrationFragment. -->
+<com.google.android.material.textfield.TextInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/textField"
+    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="@string/field_name"
+    app:boxBackgroundColor="@color/surface_container"
+    app:boxCornerRadiusBottomEnd="4dp"
+    app:boxCornerRadiusBottomStart="4dp"
+    app:boxCornerRadiusTopEnd="4dp"
+    app:boxCornerRadiusTopStart="4dp"
+    app:boxStrokeColor="@color/search_bar_border"
+    app:hintTextColor="@color/nav_tab_inactive_label">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textFieldInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white" />
+
+</com.google.android.material.textfield.TextInputLayout>

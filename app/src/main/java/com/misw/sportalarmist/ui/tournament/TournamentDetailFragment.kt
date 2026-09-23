@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.misw.sportalarmist.R
@@ -33,6 +34,21 @@ class TournamentDetailFragment : Fragment() {
         binding.appBar.appBarBackIcon.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        val tournamentId = arguments?.getInt("tournament_id") ?: SAMPLE_TOURNAMENT_ID
+        binding.teamTriangulo.setOnClickListener { goToRegistration(tournamentId, "triangulo") }
+        binding.teamEstrella.setOnClickListener { goToRegistration(tournamentId, "estrella") }
+    }
+
+    private fun goToRegistration(tournamentId: Int, teamId: String) {
+        findNavController().navigate(
+            R.id.action_tournamentDetailFragment_to_registrationFragment,
+            bundleOf("tournament_id" to tournamentId, "team_id" to teamId)
+        )
+    }
+
+    private companion object {
+        const val SAMPLE_TOURNAMENT_ID = 1
     }
 
     override fun onDestroyView() {
