@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding.tabPartidos.setOnClickListener { navController.navigate(R.id.matchesFragment) }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            setTorneosTabSelected(destination.id == R.id.homeFragment)
+            setTorneosTabSelected(destination.id != R.id.matchesFragment)
         }
     }
 

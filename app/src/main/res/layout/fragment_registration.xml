@@ -23,6 +23,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="132dp"
+        android:alpha="0.6"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_illustration_band_calendario"
         android:contentDescription="@null"

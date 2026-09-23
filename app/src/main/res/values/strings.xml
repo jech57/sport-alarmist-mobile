@@ -16,4 +16,13 @@
     <string name="empty_state_matches_going">No has confirmado tu asistencia a ningún partido. Revisa las demás pestañas. Si no encuentras ningún partido, verifica que hagas parte de un torneo.</string>
     <string name="empty_state_matches_not_going">No has negado tu asistencia a ningún partido. Revisa las demás pestañas. Si no encuentras ningún partido, verifica que hagas parte de un torneo.</string>
     <string name="empty_state_matches_pending">No tienes ningún partido pendiente por confirmar asistencia. Revisa las demás pestañas. Si no encuentras ningún partido, verifica que hagas parte de un torneo.</string>
+
+    <string name="hint_search_tournament">Buscar torneo...</string>
+    <string name="tournament_sample_name">Torneo 1</string>
+    <string name="tournament_status_not_registered">No inscrito</string>
+
+    <string name="subtitle_select_team">Selecciona un equipo</string>
+    <string name="hint_search_team">Buscar equipo...</string>
+    <string name="team_triangulo">Triángulo</string>
+    <string name="team_estrella">Estrella</string>
 </resources>
