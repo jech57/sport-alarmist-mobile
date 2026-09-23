@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dropdown de resultados reutilizable: se ubica justo debajo de cada
+     search bar y aparece solo mientras hay texto con coincidencias. Ver
+     wireSearch() en cada fragment. -->
+<androidx.recyclerview.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/searchResultsList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:background="@drawable/bg_search_results"
+    android:elevation="8dp"
+    android:visibility="gone" />

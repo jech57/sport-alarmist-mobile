@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botón "Inscribirme" (nodo 30:1812): frame exterior con borde naranja. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="14dp" />
+    <solid android:color="@color/surface_container" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/orange_primary" />
+</shape>

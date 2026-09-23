@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botón reutilizable (nodos 30:1811/30:1812): frame exterior + pill
+     interior. Por defecto sale con el estilo "neutral" (Cancelar); las
+     pantallas que necesitan la variante naranja (Inscribirme) sobreescriben
+     el fondo y el texto en código, ver RegistrationFragment. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_button_outer_neutral"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="1dp">
+
+    <TextView
+        android:id="@+id/buttonLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/bg_button_inner_neutral"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/action_cancel"
+        android:textColor="@color/button_text_neutral"
+        android:textSize="16sp" />
+
+</LinearLayout>
