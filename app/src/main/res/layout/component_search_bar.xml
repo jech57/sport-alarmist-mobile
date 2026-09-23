@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Reusable search bar: matches, torneos y cualquier otra pantalla que lo
+     necesite lo incluyen con <include>. El ícono y el hint por defecto son
+     los de Partidos; las pantallas que difieren los sobreescriben en código
+     (ver HomeFragment). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/searchBar"
+    android:layout_width="0dp"
+    android:layout_height="56dp"
+    android:layout_marginStart="21dp"
+    android:layout_marginTop="115dp"
+    android:layout_marginEnd="21dp"
+    android:background="@drawable/bg_search_bar"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingEnd="20dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:id="@+id/searchBarIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_menu"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/searchBarHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/hint_filter_by_tournament"
+        android:textColor="@color/nav_tab_inactive_label"
+        android:textSize="16sp" />
+
+</LinearLayout>

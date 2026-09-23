@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Team badge (nodo 57:846). El SVG pegado por el usuario solo traía la
+     viñeta radial y el ícono; el relleno sólido del círculo (color de
+     equipo) se agregó acá para que coincida con el mockup. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="76dp"
+    android:height="76dp"
+    android:viewportWidth="76"
+    android:viewportHeight="76">
+    <path
+        android:pathData="M38,76C58.9868,76 76,58.9868 76,38C76,17.0132 58.9868,0 38,0C17.0132,0 0,17.0132 0,38C0,58.9868 17.0132,76 38,76Z"
+        android:fillColor="@color/team_badge_blue" />
+    <path android:pathData="M38,76C58.9868,76 76,58.9868 76,38C76,17.0132 58.9868,0 38,0C17.0132,0 0,17.0132 0,38C0,58.9868 17.0132,76 38,76Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="57.76"
+                android:centerY="60.8"
+                android:gradientRadius="41.8">
+                <item android:offset="0" android:color="#8C000000" />
+                <item android:offset="1" android:color="#00000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M38,24.5 L41.7,32.8 L50.7,33.7 L44,40.1 L45.7,49 L38,44.5 L30.3,49 L32,40.1 L25.3,33.7 L34.3,32.8 L38,24.5Z"
+        android:strokeColor="#DCE9FF"
+        android:strokeWidth="2.1"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

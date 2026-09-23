@@ -7,52 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.matches.MatchesFragment">
 
-    <!-- App bar "Alarmas" (Small-centered, nodo 30:1857). -->
-    <TextView
-        android:id="@+id/appBarTitle"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:gravity="center"
-        android:text="@string/title_app_bar_alarms"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include layout="@layout/component_app_bar" />
 
     <!-- Search bar "Filtrar por torneo..." (nodo 30:1839). -->
-    <LinearLayout
+    <include
         android:id="@+id/searchBar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="115dp"
-        android:layout_marginEnd="21dp"
-        android:background="@drawable/bg_search_bar"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="12dp"
-        android:paddingEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/ic_menu"
-            android:contentDescription="@null" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/hint_filter_by_tournament"
-            android:textColor="@color/nav_tab_inactive_label"
-            android:textSize="16sp" />
-
-    </LinearLayout>
+        layout="@layout/component_search_bar" />
 
     <!-- Tabs Voy / No voy / Pendientes (nodo 30:1858). -->
     <com.google.android.material.tabs.TabLayout
