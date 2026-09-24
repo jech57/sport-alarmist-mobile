@@ -100,27 +100,102 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Asistencia: [Voy] [No voy] -->
     <LinearLayout
+        android:id="@+id/attendanceRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchDateTime">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/attendance_label"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/goingButton"
+            android:layout_width="88dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_attendance_idle"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/tab_going"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/notGoingButton"
+            android:layout_width="88dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_attendance_idle"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/tab_not_going"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Recordarme: solo visible cuando se elige "Voy" -->
+    <LinearLayout
+        android:id="@+id/remindersSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="21dp"
+        android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/attendanceRow"
+        tools:visibility="visible">
 
-        <include
-            android:id="@+id/notGoingButton"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            layout="@layout/component_button" />
+            android:layout_marginBottom="4dp"
+            android:text="@string/attendance_remind_me"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <include
-            android:id="@+id/goingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            layout="@layout/component_button" />
+        <CheckBox
+            android:id="@+id/reminderOneWeek"
+            style="@style/AttendanceReminderCheckBox"
+            android:text="@string/attendance_reminder_one_week" />
+
+        <CheckBox
+            android:id="@+id/reminderThreeDays"
+            style="@style/AttendanceReminderCheckBox"
+            android:text="@string/attendance_reminder_three_days" />
+
+        <CheckBox
+            android:id="@+id/reminderOneDay"
+            style="@style/AttendanceReminderCheckBox"
+            android:text="@string/attendance_reminder_one_day" />
+
+        <CheckBox
+            android:id="@+id/reminderFiveHours"
+            style="@style/AttendanceReminderCheckBox"
+            android:text="@string/attendance_reminder_five_hours" />
+
+        <CheckBox
+            android:id="@+id/reminderTwoHours"
+            style="@style/AttendanceReminderCheckBox"
+            android:text="@string/attendance_reminder_two_hours" />
 
     </LinearLayout>
 
@@ -136,5 +211,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Cancelar / Guardar: van después de la ilustración para dibujarse encima -->
+    <LinearLayout
+        android:id="@+id/actionsRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <include
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            layout="@layout/component_button" />
+
+        <include
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/component_button" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

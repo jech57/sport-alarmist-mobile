@@ -49,4 +49,15 @@
     <string name="label_vs">vs.</string>
     <string name="status_attendance_pending">Asistencia pendiente</string>
     <string name="match_date_time">%1$s · %2$s</string>
+
+    <!-- Confirmación de asistencia -->
+    <string name="attendance_label">Asistencia:</string>
+    <string name="attendance_remind_me">Recordarme:</string>
+    <string name="attendance_reminder_one_week">Una semana antes</string>
+    <string name="attendance_reminder_three_days">3 días antes</string>
+    <string name="attendance_reminder_one_day">1 día antes</string>
+    <string name="attendance_reminder_five_hours">5 horas antes</string>
+    <string name="attendance_reminder_two_hours">2 horas antes</string>
+    <string name="attendance_save">Guardar</string>
+    <string name="next_alarm">Próxima alarma: %1$s</string>
 </resources>

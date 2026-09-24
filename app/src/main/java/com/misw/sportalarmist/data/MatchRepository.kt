@@ -27,7 +27,7 @@ class MatchRepository(private val enrollmentStore: EnrollmentStore) {
     }
 
     private companion object {
-        const val FIXED_DATE = "12-07-2026"
+        const val FIXED_DATE = "12-11-2026"
         const val FIXED_TIME = "07:30 PM"
     }
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.misw.sportalarmist.R
@@ -13,6 +14,8 @@ import com.misw.sportalarmist.data.Teams
 class MatchListAdapter(
     private val showPendingStatus: Boolean,
     private val tournamentName: (Match) -> String,
+    /** Texto de "Próxima alarma: …", o null para ocultar la fila. */
+    private val nextAlarm: (Match) -> String? = { null },
     private val onClick: (Match) -> Unit
 ) : RecyclerView.Adapter<MatchListAdapter.ViewHolder>() {
 
@@ -44,6 +47,10 @@ class MatchListAdapter(
         holder.matchTime.text = match.time
         holder.statusRow.visibility = if (showPendingStatus) View.VISIBLE else View.GONE
 
+        val alarmText = nextAlarm(match)
+        holder.alarmRow.visibility = if (alarmText != null) View.VISIBLE else View.GONE
+        holder.alarmText.text = alarmText.orEmpty()
+
         holder.itemView.setOnClickListener { onClick(match) }
     }
 
@@ -58,7 +65,9 @@ class MatchListAdapter(
         val awayTeamName: TextView = view.findViewById(R.id.awayTeamName)
         val matchDate: TextView = view.findViewById(R.id.matchDate)
         val matchTime: TextView = view.findViewById(R.id.matchTime)
-        val statusRow: android.widget.LinearLayout = view.findViewById(R.id.statusRow)
+        val statusRow: LinearLayout = view.findViewById(R.id.statusRow)
+        val alarmRow: LinearLayout = view.findViewById(R.id.alarmRow)
+        val alarmText: TextView = view.findViewById(R.id.alarmText)
     }
 
     private companion object {

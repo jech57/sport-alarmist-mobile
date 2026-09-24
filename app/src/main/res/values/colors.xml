@@ -48,4 +48,17 @@
     <color name="button_text_neutral">#F5F5F7</color>
     <color name="button_fill_primary">#FF6A00</color>
     <color name="button_text_primary">#0E0E10</color>
+
+    <!-- Confirmación de asistencia: botones Voy/No voy y checkboxes de recordatorio. -->
+    <color name="attendance_idle">#8E8E93</color>
+    <color name="attendance_going">#22C55E</color>
+    <color name="attendance_not_going">#FF3B30</color>
+    <color name="attendance_on_selected">#111114</color>
+    <color name="attendance_dimmed_bg">#1A1A1F</color>
+    <color name="attendance_dimmed_border">#2C2C33</color>
+    <color name="attendance_dimmed_text">#8E8E93</color>
+    <color name="attendance_checkbox_checked">#2F7BF5</color>
+    <!-- Botón primario deshabilitado (Guardar sin selección). -->
+    <color name="button_border_primary_disabled">#6D350E</color>
+    <color name="button_text_primary_disabled">#985C34</color>
 </resources>

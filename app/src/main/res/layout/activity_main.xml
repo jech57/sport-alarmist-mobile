@@ -21,6 +21,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Textura de puntos inferior: va ANTES del NavHost para quedar detrás
+         del contenido de las pantallas (listas, doodles), igual que textureTop. -->
+    <View
+        android:id="@+id/textureBottom"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_texture_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -32,17 +43,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
-
-    <!-- En Figma la textura de puntos se pinta encima de la banda de
-         ilustración, no detrás. -->
-    <View
-        android:id="@+id/textureBottom"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@drawable/bg_texture_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Bottom nav: no es un BottomNavigationView estándar. En el mockup cada
          tab es su propia "pill" (borde redondeado 14dp, fondo solo en el
@@ -75,12 +75,32 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/tabPartidosIcon"
-                android:layout_width="30dp"
-                android:layout_height="26dp"
-                android:src="@drawable/ic_nav_partidos_active"
-                android:contentDescription="@null" />
+            <!-- Ícono + punto amarillo afuera de su esquina superior derecha
+                 (visible si hay partidos pendientes). El ícono tiene el mismo
+                 margen a ambos lados para seguir centrado; el punto ocupa el
+                 espacio del margen derecho, sin tocar el calendario. -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/tabPartidosIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginEnd="11dp"
+                    android:src="@drawable/ic_nav_partidos_active"
+                    android:contentDescription="@null" />
+
+                <View
+                    android:id="@+id/tabPartidosPendingDot"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/bg_pending_dot"
+                    android:visibility="gone" />
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tabPartidosLabel"
