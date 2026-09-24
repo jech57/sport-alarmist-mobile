@@ -167,4 +167,16 @@
 
     </LinearLayout>
 
+    <!-- Contenedor del mensaje de éxito (ver SuccessToast): anclado 16dp arriba
+         de la barra inferior. Va al final para dibujarse encima de las pantallas. -->
+    <FrameLayout
+        android:id="@+id/toastHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/navTabRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ import com.misw.sportalarmist.data.ReminderOffset
 import com.misw.sportalarmist.data.Teams
 import com.misw.sportalarmist.data.TournamentRepository
 import com.misw.sportalarmist.databinding.FragmentAttendanceConfirmationBinding
+import com.misw.sportalarmist.ui.SuccessToast
 
 class AttendanceConfirmationFragment : Fragment() {
 
@@ -90,7 +91,6 @@ class AttendanceConfirmationFragment : Fragment() {
         binding.cancelButton.buttonLabel.text = getString(R.string.action_cancel)
         binding.cancelButton.button.setOnClickListener { findNavController().navigateUp() }
 
-        binding.saveButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary)
         binding.saveButton.buttonLabel.text = getString(R.string.attendance_save)
         binding.saveButton.button.setOnClickListener { save(attendanceStore, match.id) }
 
@@ -151,15 +151,15 @@ class AttendanceConfirmationFragment : Fragment() {
     private fun updateSaveButton() {
         val enabled = canSave()
         binding.saveButton.button.isEnabled = enabled
-        binding.saveButton.button.alpha = if (enabled) 1f else 0.6f
-        binding.saveButton.buttonLabel.apply {
-            if (enabled) {
-                setBackgroundResource(R.drawable.bg_button_inner_primary)
-                setTextColor(color(R.color.button_text_primary))
-            } else {
-                background = null
-                setTextColor(color(R.color.orange_primary))
-            }
+        if (enabled) {
+            binding.saveButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary)
+            binding.saveButton.buttonLabel.setBackgroundResource(R.drawable.bg_button_inner_primary)
+            binding.saveButton.buttonLabel.setTextColor(color(R.color.button_text_primary))
+        } else {
+            // Sólido, sin transparencia: fondo oscuro, borde y texto naranja apagado.
+            binding.saveButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary_disabled)
+            binding.saveButton.buttonLabel.background = null
+            binding.saveButton.buttonLabel.setTextColor(color(R.color.button_text_primary_disabled))
         }
     }
 
@@ -172,6 +172,9 @@ class AttendanceConfirmationFragment : Fragment() {
             emptySet()
         }
         store.setReminders(matchId, reminders)
+        if (selectedStatus == AttendanceStatus.GOING) {
+            SuccessToast.show(requireActivity(), R.string.alarm_configured_success)
+        }
         findNavController().navigateUp()
     }
 

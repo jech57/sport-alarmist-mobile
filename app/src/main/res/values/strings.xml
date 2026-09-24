@@ -60,4 +60,5 @@
     <string name="attendance_reminder_two_hours">2 horas antes</string>
     <string name="attendance_save">Guardar</string>
     <string name="next_alarm">Próxima alarma: %1$s</string>
+    <string name="alarm_configured_success">Alarma configurada exitosamente</string>
 </resources>
