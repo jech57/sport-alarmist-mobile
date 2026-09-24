@@ -15,22 +15,11 @@
         android:id="@+id/searchBar"
         layout="@layout/component_search_bar" />
 
-    <!-- Listado de torneos: es el contenido principal de la pantalla. La
-         ilustración de abajo es solo decoración de fondo, no debe competir
-         visualmente con esto. -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tournamentsList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Illustration band (trofeo): decorativa, anclada al fondo, detrás
-         del listado. -->
+    <!-- Illustration band (trofeo): decorativa, anclada al fondo.
+         Va ANTES de la lista para dibujarse detrás de ella: si hay pocos
+         elementos se ve completa; si hay muchos, la lista la tapa. -->
     <ImageView
+        android:id="@+id/illustrationBand"
         android:layout_width="match_parent"
         android:layout_height="132dp"
         android:layout_marginBottom="24dp"
@@ -41,6 +30,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Listado de torneos: es el contenido principal de la pantalla,
+         se dibuja encima de la ilustración. -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tournamentsList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/noResultsText"

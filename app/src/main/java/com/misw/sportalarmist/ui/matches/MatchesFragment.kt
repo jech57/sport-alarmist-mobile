@@ -16,6 +16,7 @@ import com.misw.sportalarmist.data.AttendanceStatus
 import com.misw.sportalarmist.data.AttendanceStore
 import com.misw.sportalarmist.data.Match
 import com.misw.sportalarmist.data.MatchRepository
+import com.misw.sportalarmist.data.MatchSchedule
 import com.misw.sportalarmist.data.EnrollmentStore
 import com.misw.sportalarmist.data.Tournament
 import com.misw.sportalarmist.data.TournamentRepository
@@ -49,11 +50,16 @@ class MatchesFragment : Fragment() {
         allMatches = MatchRepository(EnrollmentStore(requireContext())).getAll()
 
         adapters = listOf(
-            MatchListAdapter(showPendingStatus = false, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) },
+            MatchListAdapter(
+                showPendingStatus = false,
+                tournamentName = ::tournamentName,
+                nextAlarm = ::nextAlarmText
+            ) { goToAttendanceConfirmation(it) },
             MatchListAdapter(showPendingStatus = false, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) },
             MatchListAdapter(showPendingStatus = true, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) }
         )
         binding.matchesList.layoutManager = LinearLayoutManager(requireContext())
+        binding.matchesTabs.getTabAt(PENDING_TAB_POSITION)?.setCustomView(R.layout.tab_pending)
 
         binding.matchesTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -88,12 +94,7 @@ class MatchesFragment : Fragment() {
     }
 
     private fun renderTab(tabPosition: Int) {
-        binding.pendingBadgeIcon.visibility =
-            if (allMatches.any { attendanceStore.statusOf(it.id) == AttendanceStatus.PENDING }) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+        updatePendingDot()
 
         val status = statusFor(tabPosition)
         val tabMatches = allMatches.filter { attendanceStore.statusOf(it.id) == status }
@@ -114,12 +115,31 @@ class MatchesFragment : Fragment() {
             if (hasAnyMatch && filtered.isEmpty()) View.VISIBLE else View.GONE
     }
 
+    /**
+     * Punto amarillo de "hay partidos pendientes": a la derecha del texto de la pestaña
+     * "Pendientes" y en la esquina del calendario de la barra inferior (activity_main).
+     */
+    private fun updatePendingDot() {
+        val hasPending = allMatches.any { attendanceStore.statusOf(it.id) == AttendanceStatus.PENDING }
+        val visibility = if (hasPending) View.VISIBLE else View.GONE
+        binding.matchesTabs.getTabAt(PENDING_TAB_POSITION)?.customView
+            ?.findViewById<View>(R.id.tabPendingDot)?.visibility = visibility
+        requireActivity().findViewById<View>(R.id.tabPartidosPendingDot)?.visibility = visibility
+    }
+
     private fun tournamentName(match: Match): String =
         tournaments.firstOrNull { it.id == match.tournamentId }?.name.orEmpty()
 
+    /** "Próxima alarma: 11-07-26 07:30 PM", o null si no va, no tiene recordatorios o ya pasaron. */
+    private fun nextAlarmText(match: Match): String? {
+        if (attendanceStore.statusOf(match.id) != AttendanceStatus.GOING) return null
+        val alarm = MatchSchedule.nextAlarm(match, attendanceStore.remindersOf(match.id)) ?: return null
+        return getString(R.string.next_alarm, MatchSchedule.formatAlarm(alarm))
+    }
+
     private fun statusFor(tabPosition: Int): AttendanceStatus = when (tabPosition) {
         1 -> AttendanceStatus.NOT_GOING
-        2 -> AttendanceStatus.PENDING
+        PENDING_TAB_POSITION -> AttendanceStatus.PENDING
         else -> AttendanceStatus.GOING
     }
 
@@ -144,5 +164,9 @@ class MatchesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private companion object {
+        const val PENDING_TAB_POSITION = 2
     }
 }

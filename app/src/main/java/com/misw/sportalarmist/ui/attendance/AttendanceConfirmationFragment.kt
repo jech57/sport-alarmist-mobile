@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -12,14 +16,20 @@ import com.misw.sportalarmist.data.AttendanceStatus
 import com.misw.sportalarmist.data.AttendanceStore
 import com.misw.sportalarmist.data.EnrollmentStore
 import com.misw.sportalarmist.data.MatchRepository
+import com.misw.sportalarmist.data.ReminderOffset
 import com.misw.sportalarmist.data.Teams
 import com.misw.sportalarmist.data.TournamentRepository
 import com.misw.sportalarmist.databinding.FragmentAttendanceConfirmationBinding
+import com.misw.sportalarmist.ui.SuccessToast
 
 class AttendanceConfirmationFragment : Fragment() {
 
     private var _binding: FragmentAttendanceConfirmationBinding? = null
     private val binding get() = _binding!!
+
+    /** Selección en pantalla; solo se persiste al tocar Guardar. */
+    private var selectedStatus = AttendanceStatus.PENDING
+    private lateinit var reminderChecks: Map<ReminderOffset, CheckBox>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,24 +63,122 @@ class AttendanceConfirmationFragment : Fragment() {
         binding.awayTeamName.text = awayTeam?.name.orEmpty()
         binding.matchDateTime.text = getString(R.string.match_date_time, match.date, match.time)
 
-        binding.notGoingButton.buttonLabel.text = getString(R.string.tab_not_going)
+        reminderChecks = mapOf(
+            ReminderOffset.ONE_WEEK to binding.reminderOneWeek,
+            ReminderOffset.THREE_DAYS to binding.reminderThreeDays,
+            ReminderOffset.ONE_DAY to binding.reminderOneDay,
+            ReminderOffset.FIVE_HOURS to binding.reminderFiveHours,
+            ReminderOffset.TWO_HOURS to binding.reminderTwoHours
+        )
 
-        binding.goingButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary)
-        binding.goingButton.buttonLabel.apply {
-            setBackgroundResource(R.drawable.bg_button_inner_primary)
-            setTextColor(ContextCompat.getColor(requireContext(), R.color.button_text_primary))
-            text = getString(R.string.tab_going)
+        if (savedInstanceState == null) {
+            // Primera vez: se carga lo guardado (PENDING = ambos botones sin seleccionar).
+            selectedStatus = attendanceStore.statusOf(match.id)
+            val savedReminders = attendanceStore.remindersOf(match.id)
+            reminderChecks.forEach { (offset, check) -> check.isChecked = offset in savedReminders }
+        } else {
+            // Rotación: los CheckBox restauran su estado solos; el estado de asistencia lo restauramos aquí.
+            selectedStatus = savedInstanceState.getString(KEY_STATUS)
+                ?.let { AttendanceStatus.valueOf(it) } ?: AttendanceStatus.PENDING
         }
 
-        binding.notGoingButton.button.setOnClickListener {
-            attendanceStore.setStatus(match.id, AttendanceStatus.NOT_GOING)
-            findNavController().navigateUp()
+        binding.goingButton.setOnClickListener { selectStatus(AttendanceStatus.GOING) }
+        binding.notGoingButton.setOnClickListener { selectStatus(AttendanceStatus.NOT_GOING) }
+        reminderChecks.values.forEach { check ->
+            check.setOnCheckedChangeListener { _, _ -> updateSaveButton() }
         }
-        binding.goingButton.button.setOnClickListener {
-            attendanceStore.setStatus(match.id, AttendanceStatus.GOING)
-            findNavController().navigateUp()
+
+        binding.cancelButton.buttonLabel.text = getString(R.string.action_cancel)
+        binding.cancelButton.button.setOnClickListener { findNavController().navigateUp() }
+
+        binding.saveButton.buttonLabel.text = getString(R.string.attendance_save)
+        binding.saveButton.button.setOnClickListener { save(attendanceStore, match.id) }
+
+        render()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_STATUS, selectedStatus.name)
+    }
+
+    private fun selectStatus(status: AttendanceStatus) {
+        selectedStatus = status
+        render()
+    }
+
+    private fun render() {
+        val pending = selectedStatus == AttendanceStatus.PENDING
+        styleChoice(
+            binding.goingButton,
+            selected = selectedStatus == AttendanceStatus.GOING,
+            pending = pending,
+            selectedBackground = R.drawable.bg_attendance_going
+        )
+        styleChoice(
+            binding.notGoingButton,
+            selected = selectedStatus == AttendanceStatus.NOT_GOING,
+            pending = pending,
+            selectedBackground = R.drawable.bg_attendance_not_going
+        )
+        binding.remindersSection.visibility =
+            if (selectedStatus == AttendanceStatus.GOING) View.VISIBLE else View.GONE
+        updateSaveButton()
+    }
+
+    /** Tres estados: sin elegir (gris), elegido (verde/rojo) y no elegido (oscuro). */
+    private fun styleChoice(
+        view: TextView,
+        selected: Boolean,
+        pending: Boolean,
+        @DrawableRes selectedBackground: Int
+    ) {
+        val (background, textColor) = when {
+            selected -> selectedBackground to R.color.attendance_on_selected
+            pending -> R.drawable.bg_attendance_idle to R.color.white
+            else -> R.drawable.bg_attendance_dimmed to R.color.attendance_dimmed_text
+        }
+        view.setBackgroundResource(background)
+        view.setTextColor(color(textColor))
+    }
+
+    private fun canSave(): Boolean = when (selectedStatus) {
+        AttendanceStatus.GOING -> reminderChecks.values.any { it.isChecked }
+        AttendanceStatus.NOT_GOING -> true
+        AttendanceStatus.PENDING -> false
+    }
+
+    private fun updateSaveButton() {
+        val enabled = canSave()
+        binding.saveButton.button.isEnabled = enabled
+        if (enabled) {
+            binding.saveButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary)
+            binding.saveButton.buttonLabel.setBackgroundResource(R.drawable.bg_button_inner_primary)
+            binding.saveButton.buttonLabel.setTextColor(color(R.color.button_text_primary))
+        } else {
+            // Sólido, sin transparencia: fondo oscuro, borde y texto naranja apagado.
+            binding.saveButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary_disabled)
+            binding.saveButton.buttonLabel.background = null
+            binding.saveButton.buttonLabel.setTextColor(color(R.color.button_text_primary_disabled))
         }
     }
+
+    private fun save(store: AttendanceStore, matchId: Int) {
+        if (!canSave()) return
+        store.setStatus(matchId, selectedStatus)
+        val reminders = if (selectedStatus == AttendanceStatus.GOING) {
+            reminderChecks.filterValues { it.isChecked }.keys
+        } else {
+            emptySet()
+        }
+        store.setReminders(matchId, reminders)
+        if (selectedStatus == AttendanceStatus.GOING) {
+            SuccessToast.show(requireActivity(), R.string.alarm_configured_success)
+        }
+        findNavController().navigateUp()
+    }
+
+    private fun color(@ColorRes res: Int) = ContextCompat.getColor(requireContext(), res)
 
     private fun badgeFor(teamId: String) =
         if (teamId == TEAM_ESTRELLA) R.drawable.ic_team_badge_estrella else R.drawable.ic_team_badge_triangulo
@@ -82,5 +190,6 @@ class AttendanceConfirmationFragment : Fragment() {
 
     private companion object {
         const val TEAM_ESTRELLA = "estrella"
+        const val KEY_STATUS = "attendance_selected_status"
     }
 }
