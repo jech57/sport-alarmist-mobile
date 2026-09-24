@@ -78,10 +78,18 @@ class HomeFragment : Fragment() {
         list.sortedByDescending { enrollmentStore.isEnrolled(it.id) }
 
     private fun goToTournament(tournament: Tournament) {
-        findNavController().navigate(
-            R.id.action_homeFragment_to_tournamentDetailFragment,
-            bundleOf("tournament_id" to tournament.id)
-        )
+        val teamId = enrollmentStore.enrolledTeamId(tournament.id)
+        if (teamId != null) {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_teamDetailFragment,
+                bundleOf("tournament_id" to tournament.id, "team_id" to teamId)
+            )
+        } else {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_tournamentDetailFragment,
+                bundleOf("tournament_id" to tournament.id)
+            )
+        }
     }
 
     override fun onDestroyView() {

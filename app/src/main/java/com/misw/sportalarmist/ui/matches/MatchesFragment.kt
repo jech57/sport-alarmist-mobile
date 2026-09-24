@@ -6,23 +6,31 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.misw.sportalarmist.R
+import com.misw.sportalarmist.data.AttendanceStatus
+import com.misw.sportalarmist.data.AttendanceStore
+import com.misw.sportalarmist.data.Match
+import com.misw.sportalarmist.data.MatchRepository
 import com.misw.sportalarmist.data.EnrollmentStore
 import com.misw.sportalarmist.data.Tournament
 import com.misw.sportalarmist.data.TournamentRepository
 import com.misw.sportalarmist.databinding.FragmentMatchesBinding
-import com.misw.sportalarmist.ui.common.SearchResultAdapter
 
 class MatchesFragment : Fragment() {
 
     private var _binding: FragmentMatchesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var enrolledTournaments: List<Tournament>
-    private lateinit var searchAdapter: SearchResultAdapter<Tournament>
+    private lateinit var attendanceStore: AttendanceStore
+    private lateinit var tournaments: List<Tournament>
+    private var allMatches: List<Match> = emptyList()
+    private lateinit var adapters: List<MatchListAdapter>
+    private var searchQuery: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,11 +44,21 @@ class MatchesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // El texto del empty state depende del tab seleccionado (nodos
-        // 30:1850 "Voy", 14:6371 "No voy", 14:6291 "Pendientes").
+        attendanceStore = AttendanceStore(requireContext())
+        tournaments = TournamentRepository(requireContext()).getAll()
+        allMatches = MatchRepository(EnrollmentStore(requireContext())).getAll()
+
+        adapters = listOf(
+            MatchListAdapter(showPendingStatus = false, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) },
+            MatchListAdapter(showPendingStatus = false, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) },
+            MatchListAdapter(showPendingStatus = true, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) }
+        )
+        binding.matchesList.layoutManager = LinearLayoutManager(requireContext())
+
         binding.matchesTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.emptyStateText.setText(emptyStateTextFor(tab.position))
+                renderTab(tab.position)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) = Unit
@@ -48,46 +66,79 @@ class MatchesFragment : Fragment() {
         })
 
         setUpSearch()
+
+        val filterTournament = arguments?.getString("filter_tournament")
+        if (!filterTournament.isNullOrBlank()) {
+            binding.searchBar.searchBarHint.setText(filterTournament)
+        } else {
+            renderTab(binding.matchesTabs.selectedTabPosition)
+        }
     }
 
     private fun setUpSearch() {
-        val enrollmentStore = EnrollmentStore(requireContext())
-        val enrolledIds = enrollmentStore.enrolledTournamentIds()
-        enrolledTournaments = TournamentRepository(requireContext()).getAll()
-            .filter { it.id in enrolledIds }
-
-        // Solo filtra: seleccionar un torneo no navega a ningún lado, eso
-        // sigue siendo tarea del listado de Torneos.
-        searchAdapter = SearchResultAdapter<Tournament>(label = { it.name }, onClick = {})
-        binding.searchResults.searchResultsList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = searchAdapter
-        }
-
         binding.searchBar.searchBarHint.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
             override fun afterTextChanged(s: Editable?) {
-                val query = s?.toString().orEmpty()
-                if (query.isBlank()) {
-                    binding.searchResults.searchResultsList.visibility = View.GONE
-                    binding.noResultsText.visibility = View.GONE
-                    return
-                }
-                val matches = enrolledTournaments.filter { it.name.contains(query, ignoreCase = true) }
-                searchAdapter.submitList(matches)
-                binding.searchResults.searchResultsList.visibility =
-                    if (matches.isEmpty()) View.GONE else View.VISIBLE
-                binding.noResultsText.visibility = if (matches.isEmpty()) View.VISIBLE else View.GONE
+                searchQuery = s?.toString().orEmpty()
+                renderTab(binding.matchesTabs.selectedTabPosition)
             }
         })
+    }
+
+    private fun renderTab(tabPosition: Int) {
+        binding.pendingBadgeIcon.visibility =
+            if (allMatches.any { attendanceStore.statusOf(it.id) == AttendanceStatus.PENDING }) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+
+        val status = statusFor(tabPosition)
+        val tabMatches = allMatches.filter { attendanceStore.statusOf(it.id) == status }
+        val filtered = if (searchQuery.isBlank()) {
+            tabMatches
+        } else {
+            tabMatches.filter { tournamentName(it).contains(searchQuery, ignoreCase = true) }
+        }
+
+        val adapter = adapters[tabPosition]
+        binding.matchesList.adapter = adapter
+        adapter.submitList(filtered)
+
+        val hasAnyMatch = tabMatches.isNotEmpty()
+        binding.emptyStateText.visibility = if (hasAnyMatch) View.GONE else View.VISIBLE
+        binding.matchesList.visibility = if (hasAnyMatch) View.VISIBLE else View.GONE
+        binding.noResultsText.visibility =
+            if (hasAnyMatch && filtered.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun tournamentName(match: Match): String =
+        tournaments.firstOrNull { it.id == match.tournamentId }?.name.orEmpty()
+
+    private fun statusFor(tabPosition: Int): AttendanceStatus = when (tabPosition) {
+        1 -> AttendanceStatus.NOT_GOING
+        2 -> AttendanceStatus.PENDING
+        else -> AttendanceStatus.GOING
     }
 
     private fun emptyStateTextFor(tabPosition: Int): Int = when (tabPosition) {
         1 -> R.string.empty_state_matches_not_going
         2 -> R.string.empty_state_matches_pending
         else -> R.string.empty_state_matches_going
+    }
+
+    private fun goToAttendanceConfirmation(match: Match) {
+        findNavController().navigate(
+            R.id.action_matchesFragment_to_attendanceConfirmationFragment,
+            bundleOf("tournament_id" to match.tournamentId)
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (_binding != null) renderTab(binding.matchesTabs.selectedTabPosition)
     }
 
     override fun onDestroyView() {
