@@ -12,6 +12,22 @@
         <action
             android:id="@+id/action_homeFragment_to_tournamentDetailFragment"
             app:destination="@id/tournamentDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/teamDetailFragment"
+        android:name="com.misw.sportalarmist.ui.team.TeamDetailFragment"
+        android:label="@string/title_team_detail"
+        tools:layout="@layout/fragment_team_detail">
+        <argument
+            android:name="tournament_id"
+            app:argType="integer" />
+        <argument
+            android:name="team_id"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -58,6 +74,14 @@
         android:name="com.misw.sportalarmist.ui.matches.MatchesFragment"
         android:label="@string/title_matches"
         tools:layout="@layout/fragment_matches">
+        <argument
+            android:name="filter_tournament"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_matchesFragment_to_attendanceConfirmationFragment"
+            app:destination="@id/attendanceConfirmationFragment" />
     </fragment>
 
 </navigation>

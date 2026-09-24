@@ -76,17 +76,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Resultados de "Filtrar por torneo...": solo entre los torneos donde
-         el usuario está inscrito. Solo filtra lo que se ve; no navega —
-         seguir viendo un torneo sigue siendo tocarlo en su propio listado. -->
-    <include
-        android:id="@+id/searchResults"
+    <!-- Listado de partidos del tab seleccionado, filtrado en el sitio por
+         "Filtrar por torneo..." (ver MatchesFragment). -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/matchesList"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="171dp"
-        android:layout_marginEnd="21dp"
-        layout="@layout/component_search_results"
+        android:layout_height="0dp"
+        android:layout_marginTop="233dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -96,7 +93,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="260dp"
         android:layout_marginEnd="38dp"
         android:gravity="center"
         android:text="@string/search_no_results"
@@ -105,6 +102,21 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Ícono de alerta flotante (nodo 115:6757): avisa que hay al menos un
+         partido pendiente, se ve en cualquier pestaña, no solo en
+         "Pendientes" (ver MatchesFragment). -->
+    <ImageView
+        android:id="@+id/pendingBadgeIcon"
+        android:layout_width="16dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="237dp"
+        android:layout_marginEnd="61dp"
+        android:src="@drawable/ic_warning_triangle"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

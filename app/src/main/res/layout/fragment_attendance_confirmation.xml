@@ -7,16 +7,122 @@
     android:layout_height="match_parent"
     tools:context=".ui.attendance.AttendanceConfirmationFragment">
 
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/component_app_bar" />
+
     <TextView
+        android:id="@+id/tournamentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/title_attendance_confirmation"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="122dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/teamsRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/homeTeamIcon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/homeTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/label_vs"
+            android:textColor="@color/nav_tab_inactive_label"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/awayTeamIcon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/awayTeamName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/matchDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="290dp"
+        android:textColor="@color/nav_tab_inactive_label"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/notGoingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            layout="@layout/component_button" />
+
+        <include
+            android:id="@+id/goingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/component_button" />
+
+    </LinearLayout>
 
     <!-- Illustration band (doodle): mismo lugar que en el mockup de Figma
          (frame "Confirmación de asistencia"), anclada al fondo. -->

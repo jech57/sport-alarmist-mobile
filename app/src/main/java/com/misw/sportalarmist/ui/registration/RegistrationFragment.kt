@@ -88,7 +88,7 @@ class RegistrationFragment : Fragment() {
             saveDraft()
             enrollmentStore.markEnrolled(tournamentId, teamId)
             showRegistrationSuccessToast()
-            findNavController().navigateUp()
+            findNavController().popBackStack(R.id.homeFragment, false)
         }
     }
 
