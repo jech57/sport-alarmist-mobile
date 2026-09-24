@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Ported from Figma's SVG export of "Illustration band (cronómetro)" — the
+  bottom decoration for Partidos (Voy tab), the one with the glowing
+  stopwatch + dashed reminder trail + doodle. Two adaptations, same reasoning
+  as ic_illustration_band_calendario.xml:
+  1. stroke-dasharray ("3 5" on the stopwatch's top arc, "1 6" on the long
+     reminder trail) has no VectorDrawable equivalent, so both were left as
+     continuous strokes — low-opacity decorative lines, reads the same.
+  2. the background wash is an elliptical radial gradient; approximated here
+     with a circular gradient sized to the ellipse's larger axis.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="412dp"
+    android:height="132dp"
+    android:viewportWidth="412"
+    android:viewportHeight="132">
+
+    <!-- card outline -->
+    <path
+        android:pathData="M395.5,0.5H16.5C7.66344,0.5 0.5,7.66344 0.5,16.5V115.5C0.5,124.337 7.66344,131.5 16.5,131.5H395.5C404.337,131.5 411.5,124.337 411.5,115.5V16.5C411.5,7.66344 404.337,0.5 395.5,0.5Z"
+        android:fillColor="#0E0E10"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.08"
+        android:strokeWidth="1" />
+
+    <!-- card background wash: same rounded-rect shape as the outline,
+         filled with a radial gradient (its ellipse is approximated as a
+         circle sized to the larger axis, see header). -->
+    <path android:pathData="M396,1H16C7.71573,1 1,7.71573 1,16V116C1,124.284 7.71573,131 16,131H396C404.284,131 411,124.284 411,116V16C411,7.71573 404.284,1 396,1Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="124"
+                android:centerY="131"
+                android:gradientRadius="287">
+                <item android:offset="0" android:color="#29F59E0B" />
+                <item android:offset="0.68" android:color="#00F59E0B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- dotted grid rows, background -->
+    <path
+        android:pathData="M-10,40H422"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.07"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M-10,66H422"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.07"
+        android:strokeWidth="1.5" />
+    <path
+        android:pathData="M-10,92H422"
+        android:strokeColor="#FFFFFF"
+        android:strokeAlpha="0.07"
+        android:strokeWidth="1.5" />
+
+    <!-- doodle (paper plane / flag outline), background element -->
+    <path
+        android:pathData="M301.36,54.8419C302.331,52.098 304.194,49.7593 306.652,48.2004C309.11,46.6414 312.02,45.9524 314.916,46.2437C317.812,46.535 320.526,47.7896 322.625,49.8068C324.723,51.824 326.083,54.4869 326.488,57.3692C326.894,60.2515 326.32,63.1863 324.859,65.7037C323.398,68.221 321.134,70.1753 318.431,71.2535C315.727,72.3318 312.74,72.4715 309.948,71.6505C307.155,70.8294 304.719,69.095 303.03,66.7251L289.166,68.6735L280.409,63.8453L287.496,56.7903L301.36,54.8419Z"
+        android:strokeColor="#A3A3A8"
+        android:strokeAlpha="0.3"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M302.751,64.7445C304.939,64.4371 306.463,62.4144 306.156,60.2268C305.848,58.0391 303.826,56.5149 301.638,56.8224C299.45,57.1298 297.926,59.1525 298.234,61.3402C298.541,63.5278 300.564,65.052 302.751,64.7445Z"
+        android:strokeColor="#A3A3A8"
+        android:strokeAlpha="0.3"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M327.942,57.165L336.854,55.9124"
+        android:strokeColor="#A3A3A8"
+        android:strokeAlpha="0.5"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- ring accents, top right -->
+    <path
+        android:pathData="M348,40C354.667,34.6667 356,28.6667 352,22"
+        android:strokeColor="#F59E0B"
+        android:strokeAlpha="0.35"
+        android:strokeWidth="1.6" />
+    <path
+        android:pathData="M356,46C366.667,43.3333 371.333,36 370,24"
+        android:strokeColor="#F59E0B"
+        android:strokeAlpha="0.35"
+        android:strokeWidth="1.6" />
+
+    <!-- stopwatch glow -->
+    <path android:pathData="M98,100C116.778,100 132,84.7777 132,66C132,47.2223 116.778,32 98,32C79.2223,32 64,47.2223 64,66C64,84.7777 79.2223,100 98,100Z"
+        android:fillAlpha="0.85">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="98"
+                android:centerY="66"
+                android:gradientRadius="34">
+                <item android:offset="0" android:color="#BFF59E0B" />
+                <item android:offset="0.55" android:color="#3DF59E0B" />
+                <item android:offset="1" android:color="#00F59E0B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- stopwatch icon -->
+    <path
+        android:pathData="M92,36H104M98,36V30"
+        android:strokeColor="#FFE3B0"
+        android:strokeAlpha="0.85"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M98,90C111.255,90 122,79.2548 122,66C122,52.7452 111.255,42 98,42C84.7452,42 74,52.7452 74,66C74,79.2548 84.7452,90 98,90Z"
+        android:fillColor="#0E0E10"
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="2.2" />
+    <path
+        android:pathData="M98,48C101.093,48.0672 104.117,48.9307 106.78,50.5072C109.442,52.0837 111.654,54.3199 113.2,57"
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="2.2" />
+    <path
+        android:pathData="M98,66V53"
+        android:strokeColor="#FFE3B0"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M98,66L107,72"
+        android:strokeColor="#FFE3B0"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round" />
+
+    <!-- long reminder trail -->
+    <path
+        android:pathData="M118,60C150,48 178,50 196,62"
+        android:strokeColor="#F59E0B"
+        android:strokeAlpha="0.4"
+        android:strokeWidth="1.8" />
+
+</vector>
