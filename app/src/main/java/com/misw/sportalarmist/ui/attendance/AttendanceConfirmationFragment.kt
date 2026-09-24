@@ -31,6 +31,10 @@ class AttendanceConfirmationFragment : Fragment() {
     private var selectedStatus = AttendanceStatus.PENDING
     private lateinit var reminderChecks: Map<ReminderOffset, CheckBox>
 
+    /** Lo que estaba guardado al abrir la pantalla, para saber si hubo cambios. */
+    private var initialStatus = AttendanceStatus.PENDING
+    private var initialReminders: Set<ReminderOffset> = emptySet()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,11 +75,14 @@ class AttendanceConfirmationFragment : Fragment() {
             ReminderOffset.TWO_HOURS to binding.reminderTwoHours
         )
 
+        // Lo guardado no cambia hasta tocar Guardar, así que sirve también tras una rotación.
+        initialStatus = attendanceStore.statusOf(match.id)
+        initialReminders = attendanceStore.remindersOf(match.id)
+
         if (savedInstanceState == null) {
             // Primera vez: se carga lo guardado (PENDING = ambos botones sin seleccionar).
-            selectedStatus = attendanceStore.statusOf(match.id)
-            val savedReminders = attendanceStore.remindersOf(match.id)
-            reminderChecks.forEach { (offset, check) -> check.isChecked = offset in savedReminders }
+            selectedStatus = initialStatus
+            reminderChecks.forEach { (offset, check) -> check.isChecked = offset in initialReminders }
         } else {
             // Rotación: los CheckBox restauran su estado solos; el estado de asistencia lo restauramos aquí.
             selectedStatus = savedInstanceState.getString(KEY_STATUS)
@@ -142,11 +149,25 @@ class AttendanceConfirmationFragment : Fragment() {
         view.setTextColor(color(textColor))
     }
 
-    private fun canSave(): Boolean = when (selectedStatus) {
-        AttendanceStatus.GOING -> reminderChecks.values.any { it.isChecked }
+    private fun checkedReminders(): Set<ReminderOffset> =
+        reminderChecks.filterValues { it.isChecked }.keys
+
+    private fun isValidSelection(): Boolean = when (selectedStatus) {
+        AttendanceStatus.GOING -> checkedReminders().isNotEmpty()
         AttendanceStatus.NOT_GOING -> true
         AttendanceStatus.PENDING -> false
     }
+
+    /** ¿Lo que hay en pantalla es distinto de lo guardado? */
+    private fun hasChanges(): Boolean =
+        selectedStatus != initialStatus ||
+                (selectedStatus == AttendanceStatus.GOING && checkedReminders() != initialReminders)
+
+    /** Guardar solo se habilita con una selección válida y distinta de la guardada. */
+    private fun canSave(): Boolean = isValidSelection() && hasChanges()
+
+    /** Editando = el partido ya tenía una respuesta guardada al abrir la pantalla. */
+    private fun isEditing(): Boolean = initialStatus != AttendanceStatus.PENDING
 
     private fun updateSaveButton() {
         val enabled = canSave()
@@ -165,15 +186,14 @@ class AttendanceConfirmationFragment : Fragment() {
 
     private fun save(store: AttendanceStore, matchId: Int) {
         if (!canSave()) return
+        val editing = isEditing()
         store.setStatus(matchId, selectedStatus)
-        val reminders = if (selectedStatus == AttendanceStatus.GOING) {
-            reminderChecks.filterValues { it.isChecked }.keys
-        } else {
-            emptySet()
-        }
+        val reminders = if (selectedStatus == AttendanceStatus.GOING) checkedReminders() else emptySet()
         store.setReminders(matchId, reminders)
-        if (selectedStatus == AttendanceStatus.GOING) {
-            SuccessToast.show(requireActivity(), R.string.alarm_configured_success)
+        when {
+            editing -> SuccessToast.show(requireActivity(), R.string.changes_saved_success)
+            selectedStatus == AttendanceStatus.GOING ->
+                SuccessToast.show(requireActivity(), R.string.alarm_configured_success)
         }
         findNavController().navigateUp()
     }

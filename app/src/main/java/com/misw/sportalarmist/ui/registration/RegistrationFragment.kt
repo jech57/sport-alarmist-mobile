@@ -2,7 +2,10 @@ package com.misw.sportalarmist.ui.registration
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.DigitsKeyListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,6 +61,16 @@ class RegistrationFragment : Fragment() {
         binding.teamPasswordField.textField.apply {
             hint = getString(R.string.field_team_password)
             helperText = getString(R.string.helper_team_password)
+        }
+
+        // Dorsal: solo números, máximo 2 dígitos. Teclado numérico + filtros que
+        // también se aplican al pegar texto y al cargar un borrador guardado.
+        binding.dorsalField.textFieldInput.apply {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            filters = arrayOf(
+                DigitsKeyListener.getInstance("0123456789"),
+                InputFilter.LengthFilter(DORSAL_MAX_DIGITS)
+            )
         }
 
         val draft = draftStore.load(tournamentId, teamId)
@@ -117,5 +130,6 @@ class RegistrationFragment : Fragment() {
     private companion object {
         const val TEAM_TRIANGULO = "triangulo"
         const val TEAM_ESTRELLA = "estrella"
+        const val DORSAL_MAX_DIGITS = 2
     }
 }

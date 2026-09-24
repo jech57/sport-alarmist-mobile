@@ -61,4 +61,5 @@
     <string name="attendance_save">Guardar</string>
     <string name="next_alarm">Próxima alarma: %1$s</string>
     <string name="alarm_configured_success">Alarma configurada exitosamente</string>
+    <string name="changes_saved_success">Cambios guardados exitosamente</string>
 </resources>
