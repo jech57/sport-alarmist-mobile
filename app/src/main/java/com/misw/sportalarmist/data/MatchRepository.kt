@@ -33,7 +33,12 @@ class MatchRepository(
         )
     }
 
+    /** Lugar del partido. Fijo por ahora (no hay backend). */
+    @Suppress("UNUSED_PARAMETER")
+    fun venueFor(match: Match): String = FIXED_VENUE
+
     private companion object {
+        const val FIXED_VENUE = "Cancha Campín"
         const val FIXED_DATE = "12-11-2026"
         const val FIXED_TIME = "07:30 PM"
     }
