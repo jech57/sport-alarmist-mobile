@@ -9,13 +9,13 @@ Alerts — app mobile para gestionar torneos deportivos de barrio: inscripción 
 4. [Distribución de trabajo](#distribución-de-trabajo)
 
 ## Instalación y ejecución
-**1. Descargar apk**
+### 1. Descargar apk
 Descargue el archivo apk en su dispositivo celular Android. Puede encontrarlo [aquí](https://uniandes-my.sharepoint.com/:f:/g/personal/l_restrepop_uniandes_edu_co/IgA918iwPExaRIcRSvWMpdPNARImep6wge2hQSiIe3m2_Ek?e=S4WDaF).
 
-**2. Instalar apk**
+### 2. Instalar apk
 Abra el archivo apk descargado. Esto debería preguntarle si desea instalar la aplicación. Escoja que sí, y proceda si/cuando le avise que no se pudo revisar si hay contenido malicioso (no se preocupe, no lo hay).
 
-**3. Ejecutar aplicación**
+### 3. Ejecutar aplicación
 Listo! La aplicación debería aparecer en su celular lista para abrir y usar.
 
 ## Recomendaciones
