@@ -17,6 +17,7 @@ import com.misw.sportalarmist.data.EnrollmentStore
 import com.misw.sportalarmist.data.RegistrationDraft
 import com.misw.sportalarmist.data.RegistrationDraftStore
 import com.misw.sportalarmist.databinding.FragmentRegistrationBinding
+import com.misw.sportalarmist.ui.PendingDot
 import com.misw.sportalarmist.ui.SuccessToast
 
 class RegistrationFragment : Fragment() {
@@ -53,6 +54,7 @@ class RegistrationFragment : Fragment() {
 
         setUpFields()
         setUpButtons()
+        updateRegisterButton()
     }
 
     private fun setUpFields() {
@@ -81,7 +83,10 @@ class RegistrationFragment : Fragment() {
         val saveOnChange = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-            override fun afterTextChanged(s: Editable?) = saveDraft()
+            override fun afterTextChanged(s: Editable?) {
+                saveDraft()
+                updateRegisterButton()
+            }
         }
         binding.nameField.textFieldInput.addTextChangedListener(saveOnChange)
         binding.dorsalField.textFieldInput.addTextChangedListener(saveOnChange)
@@ -91,17 +96,38 @@ class RegistrationFragment : Fragment() {
     private fun setUpButtons() {
         binding.cancelButton.button.setOnClickListener { findNavController().navigateUp() }
 
-        binding.registerButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary)
-        binding.registerButton.buttonLabel.apply {
-            setBackgroundResource(R.drawable.bg_button_inner_primary)
-            setTextColor(ContextCompat.getColor(requireContext(), R.color.button_text_primary))
-            text = getString(R.string.action_register)
-        }
+        binding.registerButton.buttonLabel.text = getString(R.string.action_register)
         binding.registerButton.button.setOnClickListener {
+            if (!allFieldsFilled()) return@setOnClickListener
             saveDraft()
             enrollmentStore.markEnrolled(tournamentId, teamId)
+            PendingDot.refresh(requireActivity()) // el partido nuevo queda pendiente
             SuccessToast.show(requireActivity(), R.string.registration_success)
             findNavController().popBackStack(R.id.homeFragment, false)
+        }
+    }
+
+    /** Única validación: ningún campo vacío (los espacios solos cuentan como vacío). */
+    private fun allFieldsFilled(): Boolean = listOf(
+        binding.nameField.textFieldInput.text,
+        binding.dorsalField.textFieldInput.text,
+        binding.teamPasswordField.textFieldInput.text
+    ).all { !it.isNullOrBlank() }
+
+    /** "Inscribirme" solo se habilita con todos los campos llenos; mismo estilo que "Guardar". */
+    private fun updateRegisterButton() {
+        val enabled = allFieldsFilled()
+        binding.registerButton.button.isEnabled = enabled
+        binding.registerButton.buttonLabel.apply {
+            if (enabled) {
+                binding.registerButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary)
+                setBackgroundResource(R.drawable.bg_button_inner_primary)
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.button_text_primary))
+            } else {
+                binding.registerButton.button.setBackgroundResource(R.drawable.bg_button_outer_primary_disabled)
+                background = null
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.button_text_primary_disabled))
+            }
         }
     }
 

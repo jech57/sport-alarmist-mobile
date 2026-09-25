@@ -1,6 +1,9 @@
 package com.misw.sportalarmist.ui.attendance
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +18,16 @@ import com.misw.sportalarmist.R
 import com.misw.sportalarmist.data.AttendanceStatus
 import com.misw.sportalarmist.data.AttendanceStore
 import com.misw.sportalarmist.data.EnrollmentStore
+import com.misw.sportalarmist.data.Match
+import com.misw.sportalarmist.data.MatchChange
+import com.misw.sportalarmist.data.MatchChangeStore
 import com.misw.sportalarmist.data.MatchRepository
 import com.misw.sportalarmist.data.ReminderOffset
 import com.misw.sportalarmist.data.Teams
 import com.misw.sportalarmist.data.TournamentRepository
 import com.misw.sportalarmist.databinding.FragmentAttendanceConfirmationBinding
+import com.misw.sportalarmist.ui.MatchChangeSimulator
+import com.misw.sportalarmist.ui.PendingDot
 import com.misw.sportalarmist.ui.SuccessToast
 
 class AttendanceConfirmationFragment : Fragment() {
@@ -34,6 +42,8 @@ class AttendanceConfirmationFragment : Fragment() {
     /** Lo que estaba guardado al abrir la pantalla, para saber si hubo cambios. */
     private var initialStatus = AttendanceStatus.PENDING
     private var initialReminders: Set<ReminderOffset> = emptySet()
+    private var initialChange: MatchChange? = null
+    private lateinit var changeStore: MatchChangeStore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,10 +60,11 @@ class AttendanceConfirmationFragment : Fragment() {
         val tournamentId = arguments?.getInt("tournament_id") ?: 0
         val enrollmentStore = EnrollmentStore(requireContext())
         val attendanceStore = AttendanceStore(requireContext())
+        changeStore = MatchChangeStore(requireContext())
         val teamId = enrollmentStore.enrolledTeamId(tournamentId).orEmpty()
         val tournament = TournamentRepository(requireContext()).getAll()
             .firstOrNull { it.id == tournamentId }
-        val match = MatchRepository(enrollmentStore).forEnrollment(tournamentId, teamId)
+        val match = MatchRepository(enrollmentStore, changeStore).forEnrollment(tournamentId, teamId)
         val homeTeam = Teams.ALL.firstOrNull { it.id == match.homeTeamId }
         val awayTeam = Teams.ALL.firstOrNull { it.id == match.awayTeamId }
 
@@ -65,7 +76,8 @@ class AttendanceConfirmationFragment : Fragment() {
         binding.homeTeamName.text = homeTeam?.name.orEmpty()
         binding.awayTeamIcon.setImageResource(badgeFor(match.awayTeamId))
         binding.awayTeamName.text = awayTeam?.name.orEmpty()
-        binding.matchDateTime.text = getString(R.string.match_date_time, match.date, match.time)
+        initialChange = changeStore.changeOf(match.id)
+        binding.matchDateTime.text = dateTimeText(match, initialChange)
 
         reminderChecks = mapOf(
             ReminderOffset.ONE_WEEK to binding.reminderOneWeek,
@@ -166,8 +178,33 @@ class AttendanceConfirmationFragment : Fragment() {
     /** Guardar solo se habilita con una selección válida y distinta de la guardada. */
     private fun canSave(): Boolean = isValidSelection() && hasChanges()
 
-    /** Editando = el partido ya tenía una respuesta guardada al abrir la pantalla. */
-    private fun isEditing(): Boolean = initialStatus != AttendanceStatus.PENDING
+    /**
+     * Editando = el partido ya tenía una respuesta guardada, o fue aplazado y el
+     * usuario está volviendo a confirmar.
+     */
+    private fun isEditing(): Boolean =
+        initialStatus != AttendanceStatus.PENDING || initialChange != null
+
+    /** "fecha · hora" con la parte que cambió en otro color. */
+    private fun dateTimeText(match: Match, change: MatchChange?): CharSequence {
+        val full = getString(R.string.match_date_time, match.date, match.time)
+        if (change == null) return full
+        val highlight = color(R.color.match_changed_highlight)
+        return SpannableString(full).apply {
+            if (change.affectsDate) {
+                val start = full.indexOf(match.date)
+                if (start >= 0) {
+                    setSpan(ForegroundColorSpan(highlight), start, start + match.date.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+            }
+            if (change.affectsTime) {
+                val start = full.lastIndexOf(match.time)
+                if (start >= 0) {
+                    setSpan(ForegroundColorSpan(highlight), start, start + match.time.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+            }
+        }
+    }
 
     private fun updateSaveButton() {
         val enabled = canSave()
@@ -190,11 +227,14 @@ class AttendanceConfirmationFragment : Fragment() {
         store.setStatus(matchId, selectedStatus)
         val reminders = if (selectedStatus == AttendanceStatus.GOING) checkedReminders() else emptySet()
         store.setReminders(matchId, reminders)
+        changeStore.clearHighlight(matchId) // ya reconfirmó: se quita el resaltado
+        PendingDot.refresh(requireActivity())
         when {
             editing -> SuccessToast.show(requireActivity(), R.string.changes_saved_success)
             selectedStatus == AttendanceStatus.GOING ->
                 SuccessToast.show(requireActivity(), R.string.alarm_configured_success)
         }
+        MatchChangeSimulator.onAttendanceSaved(requireActivity(), matchId, selectedStatus)
         findNavController().navigateUp()
     }
 

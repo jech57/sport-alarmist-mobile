@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.misw.sportalarmist.R
 import com.misw.sportalarmist.data.Match
+import com.misw.sportalarmist.data.MatchChange
 import com.misw.sportalarmist.data.Teams
 
 class MatchListAdapter(
@@ -16,6 +18,8 @@ class MatchListAdapter(
     private val tournamentName: (Match) -> String,
     /** Texto de "Próxima alarma: …", o null para ocultar la fila. */
     private val nextAlarm: (Match) -> String? = { null },
+    /** Qué cambió de la fecha/hora (se resalta), o null. */
+    private val changedFields: (Match) -> MatchChange? = { null },
     private val onClick: (Match) -> Unit
 ) : RecyclerView.Adapter<MatchListAdapter.ViewHolder>() {
 
@@ -45,6 +49,12 @@ class MatchListAdapter(
         holder.awayTeamName.text = awayTeam?.name.orEmpty()
         holder.matchDate.text = match.date
         holder.matchTime.text = match.time
+        val change = changedFields(match)
+        val context = holder.itemView.context
+        val normalColor = ContextCompat.getColor(context, R.color.white)
+        val highlightColor = ContextCompat.getColor(context, R.color.match_changed_highlight)
+        holder.matchDate.setTextColor(if (change?.affectsDate == true) highlightColor else normalColor)
+        holder.matchTime.setTextColor(if (change?.affectsTime == true) highlightColor else normalColor)
         holder.statusRow.visibility = if (showPendingStatus) View.VISIBLE else View.GONE
 
         val alarmText = nextAlarm(match)

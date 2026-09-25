@@ -23,6 +23,8 @@ object MatchSchedule {
 
     // Formato del mockup: "11-07-26 07:30 PM".
     private const val ALARM_OUTPUT_PATTERN = "dd-MM-yy hh:mm a"
+    private const val MATCH_DATE_PATTERN = "dd-MM-yyyy"
+    private const val MATCH_TIME_PATTERN = "hh:mm a"
 
     fun startOf(match: Match): Date? {
         val raw = "${match.date} ${match.time}".trim()
@@ -53,4 +55,12 @@ object MatchSchedule {
 
     fun formatAlarm(date: Date): String =
         SimpleDateFormat(ALARM_OUTPUT_PATTERN, Locale.US).format(date)
+
+    /** Mismo formato que match.date ("12-07-2026"). */
+    fun formatMatchDate(date: Date): String =
+        SimpleDateFormat(MATCH_DATE_PATTERN, Locale.US).format(date)
+
+    /** Mismo formato que match.time ("07:30 PM"). */
+    fun formatMatchTime(date: Date): String =
+        SimpleDateFormat(MATCH_TIME_PATTERN, Locale.US).format(date)
 }

@@ -61,4 +61,6 @@
     <!-- Botón primario deshabilitado (Guardar sin selección). -->
     <color name="button_border_primary_disabled">#6D350E</color>
     <color name="button_text_primary_disabled">#985C34</color>
+    <!-- Fecha/hora del partido que cambió (tarjeta y detalle). -->
+    <color name="match_changed_highlight">#F59E0B</color>
 </resources>

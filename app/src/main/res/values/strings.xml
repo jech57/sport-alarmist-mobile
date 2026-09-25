@@ -62,4 +62,10 @@
     <string name="next_alarm">Próxima alarma: %1$s</string>
     <string name="alarm_configured_success">Alarma configurada exitosamente</string>
     <string name="changes_saved_success">Cambios guardados exitosamente</string>
+    <!-- Modal de cambio de fecha/hora del partido -->
+    <string name="match_changed_title">Atención</string>
+    <string name="match_changed_date">La fecha de tu partido ha cambiado, ve a Pendientes y configura tu alarma nuevamente.</string>
+    <string name="match_changed_time">La hora de tu partido ha cambiado, ve a Pendientes y configura tu alarma nuevamente.</string>
+    <string name="match_changed_date_and_time">La hora y fecha de tu partido han cambiado, ve a Pendientes y configura tu alarma nuevamente.</string>
+    <string name="action_ok">OK</string>
 </resources>
