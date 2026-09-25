@@ -64,7 +64,8 @@ class AttendanceConfirmationFragment : Fragment() {
         val teamId = enrollmentStore.enrolledTeamId(tournamentId).orEmpty()
         val tournament = TournamentRepository(requireContext()).getAll()
             .firstOrNull { it.id == tournamentId }
-        val match = MatchRepository(enrollmentStore, changeStore).forEnrollment(tournamentId, teamId)
+        val matchRepository = MatchRepository(enrollmentStore, changeStore)
+        val match = matchRepository.forEnrollment(tournamentId, teamId)
         val homeTeam = Teams.ALL.firstOrNull { it.id == match.homeTeamId }
         val awayTeam = Teams.ALL.firstOrNull { it.id == match.awayTeamId }
 
@@ -78,6 +79,7 @@ class AttendanceConfirmationFragment : Fragment() {
         binding.awayTeamName.text = awayTeam?.name.orEmpty()
         initialChange = changeStore.changeOf(match.id)
         binding.matchDateTime.text = dateTimeText(match, initialChange)
+        binding.matchLocation.text = getString(R.string.match_location, matchRepository.venueFor(match))
 
         reminderChecks = mapOf(
             ReminderOffset.ONE_WEEK to binding.reminderOneWeek,

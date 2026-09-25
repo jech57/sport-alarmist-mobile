@@ -89,16 +89,32 @@
 
     </LinearLayout>
 
+    <!-- Fecha/hora + lugar: centrados entre los equipos y "Asistencia"
+         (mismo margen arriba y abajo: INFO_GAP = 24dp). -->
     <TextView
         android:id="@+id/matchDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="290dp"
-        android:textColor="@color/nav_tab_inactive_label"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/teamsRow"
+        tools:text="12-11-2026 | 07:30 PM" />
+
+    <!-- Lugar del partido: lo pone AttendanceConfirmationFragment ("Lugar: Cancha Campín"). -->
+    <TextView
+        android:id="@+id/matchLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchDateTime"
+        tools:text="Lugar: Cancha Campín" />
 
     <!-- Illustration band (doodle): mismo lugar que en el mockup de Figma
          (frame "Confirmación de asistencia"), anclada al fondo.
@@ -121,7 +137,7 @@
         android:id="@+id/attendanceScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         android:clipToPadding="false"
         android:fadeScrollbars="false"
@@ -135,7 +151,7 @@
         app:layout_constraintBottom_toTopOf="@id/actionsRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/matchDateTime">
+        app:layout_constraintTop_toBottomOf="@id/matchLocation">
 
         <LinearLayout
             android:layout_width="match_parent"
