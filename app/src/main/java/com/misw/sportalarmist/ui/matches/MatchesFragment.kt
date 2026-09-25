@@ -15,19 +15,23 @@ import com.misw.sportalarmist.R
 import com.misw.sportalarmist.data.AttendanceStatus
 import com.misw.sportalarmist.data.AttendanceStore
 import com.misw.sportalarmist.data.Match
+import com.misw.sportalarmist.data.MatchChange
+import com.misw.sportalarmist.data.MatchChangeStore
 import com.misw.sportalarmist.data.MatchRepository
 import com.misw.sportalarmist.data.MatchSchedule
 import com.misw.sportalarmist.data.EnrollmentStore
 import com.misw.sportalarmist.data.Tournament
 import com.misw.sportalarmist.data.TournamentRepository
 import com.misw.sportalarmist.databinding.FragmentMatchesBinding
+import com.misw.sportalarmist.ui.MatchChangeListener
 
-class MatchesFragment : Fragment() {
+class MatchesFragment : Fragment(), MatchChangeListener {
 
     private var _binding: FragmentMatchesBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var attendanceStore: AttendanceStore
+    private lateinit var changeStore: MatchChangeStore
     private lateinit var tournaments: List<Tournament>
     private var allMatches: List<Match> = emptyList()
     private lateinit var adapters: List<MatchListAdapter>
@@ -46,17 +50,27 @@ class MatchesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         attendanceStore = AttendanceStore(requireContext())
+        changeStore = MatchChangeStore(requireContext())
         tournaments = TournamentRepository(requireContext()).getAll()
-        allMatches = MatchRepository(EnrollmentStore(requireContext())).getAll()
+        loadMatches()
 
         adapters = listOf(
             MatchListAdapter(
                 showPendingStatus = false,
                 tournamentName = ::tournamentName,
-                nextAlarm = ::nextAlarmText
+                nextAlarm = ::nextAlarmText,
+                changedFields = ::changeOf
             ) { goToAttendanceConfirmation(it) },
-            MatchListAdapter(showPendingStatus = false, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) },
-            MatchListAdapter(showPendingStatus = true, tournamentName = ::tournamentName) { goToAttendanceConfirmation(it) }
+            MatchListAdapter(
+                showPendingStatus = false,
+                tournamentName = ::tournamentName,
+                changedFields = ::changeOf
+            ) { goToAttendanceConfirmation(it) },
+            MatchListAdapter(
+                showPendingStatus = true,
+                tournamentName = ::tournamentName,
+                changedFields = ::changeOf
+            ) { goToAttendanceConfirmation(it) }
         )
         binding.matchesList.layoutManager = LinearLayoutManager(requireContext())
         binding.matchesTabs.getTabAt(PENDING_TAB_POSITION)?.setCustomView(R.layout.tab_pending)
@@ -127,6 +141,20 @@ class MatchesFragment : Fragment() {
         requireActivity().findViewById<View>(R.id.tabPartidosPendingDot)?.visibility = visibility
     }
 
+    /** Recarga los partidos (la fecha/hora puede haber cambiado). */
+    private fun loadMatches() {
+        allMatches = MatchRepository(EnrollmentStore(requireContext()), changeStore).getAll()
+    }
+
+    private fun changeOf(match: Match): MatchChange? = changeStore.changeOf(match.id)
+
+    /** Llamado por MatchChangeSimulator cuando se aplaza un partido estando en esta pantalla. */
+    override fun onMatchChanged() {
+        if (_binding == null) return
+        loadMatches()
+        renderTab(binding.matchesTabs.selectedTabPosition)
+    }
+
     private fun tournamentName(match: Match): String =
         tournaments.firstOrNull { it.id == match.tournamentId }?.name.orEmpty()
 
@@ -158,7 +186,10 @@ class MatchesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (_binding != null) renderTab(binding.matchesTabs.selectedTabPosition)
+        if (_binding != null) {
+            loadMatches()
+            renderTab(binding.matchesTabs.selectedTabPosition)
+        }
     }
 
     override fun onDestroyView() {
