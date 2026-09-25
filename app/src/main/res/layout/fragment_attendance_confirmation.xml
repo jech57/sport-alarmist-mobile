@@ -115,7 +115,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Asistencia + recordatorios: se puede hacer scroll para que los
-         recordatorios nunca queden debajo de Cancelar / Guardar. -->
+         recordatorios nunca queden debajo de Cancelar / Guardar. La barra
+         de scroll queda siempre visible (solo aparece si el contenido no cabe). -->
     <ScrollView
         android:id="@+id/attendanceScroll"
         android:layout_width="0dp"
@@ -123,8 +124,14 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
         android:clipToPadding="false"
+        android:fadeScrollbars="false"
         android:fillViewport="true"
         android:paddingBottom="8dp"
+        android:scrollbarSize="4dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbarThumbVertical="@drawable/bg_scrollbar_thumb"
+        android:scrollbarTrackVertical="@drawable/bg_scrollbar_track"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/actionsRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
