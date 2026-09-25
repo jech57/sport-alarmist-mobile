@@ -28,7 +28,7 @@ Tenga en cuenta las siguientes recomendaciones al usar la aplicación:
 | 1 |                   |        |               |
 
 ## Distribución de trabajo
-Para ver detalladamente qué cambios hizo cada integrante, puede dirijirse al apartado de [Pull Requests](https://github.com/jech57/sport-alarmist-mobile/pulls). Además, debajo puede encontrar el listado de las pantallas que desarrolló cada uno.
+Para ver detalladamente qué cambios hizo cada integrante, puede dirijirse al apartado de [Pull Requests](https://github.com/jech57/sport-alarmist-mobile/pulls?q=is%3Apr+state%3Aclosed). Además, debajo puede encontrar el listado de las pantallas que desarrolló cada uno.
 
 ### 👨‍💻 Javier
 - Listado de partidos/alarmas
