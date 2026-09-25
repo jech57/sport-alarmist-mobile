@@ -27,6 +27,7 @@ import com.misw.sportalarmist.data.Teams
 import com.misw.sportalarmist.data.TournamentRepository
 import com.misw.sportalarmist.databinding.FragmentAttendanceConfirmationBinding
 import com.misw.sportalarmist.ui.MatchChangeSimulator
+import com.misw.sportalarmist.ui.PendingDot
 import com.misw.sportalarmist.ui.SuccessToast
 
 class AttendanceConfirmationFragment : Fragment() {
@@ -227,6 +228,7 @@ class AttendanceConfirmationFragment : Fragment() {
         val reminders = if (selectedStatus == AttendanceStatus.GOING) checkedReminders() else emptySet()
         store.setReminders(matchId, reminders)
         changeStore.clearHighlight(matchId) // ya reconfirmó: se quita el resaltado
+        PendingDot.refresh(requireActivity())
         when {
             editing -> SuccessToast.show(requireActivity(), R.string.changes_saved_success)
             selectedStatus == AttendanceStatus.GOING ->

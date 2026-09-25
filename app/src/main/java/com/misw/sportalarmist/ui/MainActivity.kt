@@ -29,7 +29,15 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             setTorneosTabSelected(destination.id != R.id.matchesFragment)
+            // Punto amarillo del calendario: se revisa en cada cambio de pantalla.
+            PendingDot.refresh(this)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Al abrir la app o volver a ella: muestra el punto si ya hay partidos pendientes.
+        PendingDot.refresh(this)
     }
 
     private fun setTorneosTabSelected(torneosSelected: Boolean) {

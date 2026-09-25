@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
-import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.misw.sportalarmist.R
@@ -15,7 +15,6 @@ import com.misw.sportalarmist.data.MatchChange
 import com.misw.sportalarmist.data.MatchChangeStore
 import com.misw.sportalarmist.data.MatchRepository
 import com.misw.sportalarmist.data.MatchSchedule
-import com.misw.sportalarmist.databinding.DialogMatchChangedBinding
 import java.lang.ref.WeakReference
 import java.util.Calendar
 import kotlin.random.Random
@@ -130,7 +129,7 @@ object MatchChangeSimulator {
     }
 
     private fun refreshScreens(activity: FragmentActivity) {
-        activity.findViewById<View>(R.id.tabPartidosPendingDot)?.visibility = View.VISIBLE
+        PendingDot.refresh(activity)
         val navHost = activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         navHost?.childFragmentManager?.fragments?.forEach { fragment ->
             (fragment as? MatchChangeListener)?.onMatchChanged()
@@ -138,8 +137,8 @@ object MatchChangeSimulator {
     }
 
     private fun showDialog(activity: FragmentActivity, change: MatchChange) {
-        val binding = DialogMatchChangedBinding.inflate(activity.layoutInflater)
-        binding.dialogMessage.setText(
+        val dialogView = activity.layoutInflater.inflate(R.layout.dialog_match_changed, null)
+        dialogView.findViewById<TextView>(R.id.dialogMessage).setText(
             when (change) {
                 MatchChange.DATE -> R.string.match_changed_date
                 MatchChange.TIME -> R.string.match_changed_time
@@ -148,11 +147,11 @@ object MatchChangeSimulator {
         )
 
         val dialog = AlertDialog.Builder(activity)
-            .setView(binding.root)
+            .setView(dialogView)
             .setCancelable(false) // solo se cierra con OK
             .create()
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        binding.okButton.setOnClickListener { dialog.dismiss() }
+        dialogView.findViewById<TextView>(R.id.okButton).setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 }

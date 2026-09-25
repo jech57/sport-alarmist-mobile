@@ -17,6 +17,7 @@ import com.misw.sportalarmist.data.EnrollmentStore
 import com.misw.sportalarmist.data.RegistrationDraft
 import com.misw.sportalarmist.data.RegistrationDraftStore
 import com.misw.sportalarmist.databinding.FragmentRegistrationBinding
+import com.misw.sportalarmist.ui.PendingDot
 import com.misw.sportalarmist.ui.SuccessToast
 
 class RegistrationFragment : Fragment() {
@@ -100,6 +101,7 @@ class RegistrationFragment : Fragment() {
             if (!allFieldsFilled()) return@setOnClickListener
             saveDraft()
             enrollmentStore.markEnrolled(tournamentId, teamId)
+            PendingDot.refresh(requireActivity()) // el partido nuevo queda pendiente
             SuccessToast.show(requireActivity(), R.string.registration_success)
             findNavController().popBackStack(R.id.homeFragment, false)
         }
